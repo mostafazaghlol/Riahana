@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Riahana</string>
+    <string name="hello">h e l l o !</string>
+    <string name="paragraph">You can use your Fingerprint \nto grant access to the app.</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="login">login</string>
+    <string name="forgetPassword">Forget password?</string>
+    <string name="StillNoAccount">Still without account?</string>
+    <string name="CreateAccount">create one</string>
+</resources>
