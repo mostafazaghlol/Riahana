@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context="com.mostafa.android.riahana.Login">
+    tools:context="com.mostafa.android.riahana.Signup">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +18,17 @@
             android:paddingRight="30dp"
             android:paddingTop="70dp">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/left"
+                android:id="@+id/backimage"
+                android:onClick="backicon"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="@string/hello"
+                android:text="@string/signup"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="7pt" />
@@ -32,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:text="@string/paragraph"
+                android:text="@string/paragraphSignup"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="6pt" />
@@ -40,9 +45,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/white"
-                android:hint="@string/email"
+                android:hint="@string/Fullname"
                 android:inputType="text"
                 android:shadowColor="@color/white"
                 android:textColor="@color/white"
@@ -51,9 +56,39 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:hint="@string/Phone"
+                android:inputType="number"
+                android:shadowColor="@color/white"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:hint="@string/email"
+                android:inputType="text"
+                android:shadowColor="@color/white"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/white"
                 android:hint="@string/password"
+                android:inputType="textPassword"
+                android:shadowColor="@color/white"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
+                android:hint="@string/Repeatpassword"
                 android:inputType="textPassword"
                 android:shadowColor="@color/white"
                 android:textColor="@color/white"
@@ -70,15 +105,9 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button2"
-                    android:text="@string/login" />
+                    android:text="@string/signupbt"
+                    android:textAllCaps="false"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/forgetPassword"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,7 +122,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/StillNoAccount"
+                    android:text="@string/Alreadyhave"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -101,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/createOne"
-                    android:text="@string/CreateAccount"
+                    android:text="@string/login"
                     android:textColor="@color/pinkColor" />
             </LinearLayout>
 

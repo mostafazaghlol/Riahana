@@ -8,4 +8,11 @@
     <string name="forgetPassword">Forget password?</string>
     <string name="StillNoAccount">Still without account?</string>
     <string name="CreateAccount">create one</string>
+    <string name="signup">S I G N  U P</string>
+    <string name="paragraphSignup">Create an account to use Riahana \nwithout limits.for free</string>
+    <string name="Fullname">Full Name</string>
+    <string name="Phone">Phone</string>
+    <string name="Repeatpassword">Repeate Password</string>
+    <string name="signupbt">Sign up</string>
+    <string name="Alreadyhave">I already have an account.</string>
 </resources>
