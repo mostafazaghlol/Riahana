@@ -28,4 +28,9 @@ public class Login extends AppCompatActivity {
         });
         Picasso.with(this).load(R.drawable.adds).into(imageViewAdds);
     }
+
+    public void goon(View view) {
+        Intent i  = new Intent(this,MainActivity.class);
+        startActivity(i);
+    }
 }

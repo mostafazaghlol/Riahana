@@ -15,4 +15,17 @@
     <string name="Repeatpassword">Repeate Password</string>
     <string name="signupbt">Sign up</string>
     <string name="Alreadyhave">I already have an account.</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="Home">H O M E</string>
+    <string name="surgeries">Surgeries</string>
+    <string name="Nonsurgeries">Non-surgical operation</string>
+    <string name="processes">Hair and other processes</string>
+    <string name="inquiries">inquiries</string>
+    <string name="vision">our vision</string>
+    <string name="callus">call us</string>
 </resources>
