@@ -25,13 +25,48 @@ public class ServiesFragment extends Fragment {
         RhinoplastyImage = (ImageView)MyView.findViewById(R.id.rhinoplastv);
         InjectionImage = (ImageView)MyView.findViewById(R.id.injection);
         EmbellrskImage = (ImageView)MyView.findViewById(R.id.Embellrsk);
-        Intent i= null;
+       final Intent i= new Intent(getContext(),Services.class);;
         EyeLeftImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                i=new Intent()
+              i.putExtra("Title",getString(R.string.eyeleftprocess));
+              i.putExtra("Image",R.drawable.placeholder);
+              i.putExtra("information1","Place Holder");
+              i.putExtra("information2","place Holder ");
+              startActivity(i);
             }
         });
+        RhinoplastyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i.putExtra("Title",getString(R.string.rhinoplastv));
+                i.putExtra("Image",R.drawable.placeholder);
+                i.putExtra("information1","Place Holder");
+                i.putExtra("information2","place Holder ");
+                startActivity(i);
+            }
+        });
+        InjectionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i.putExtra("Title",getString(R.string.theprocessoffateinjection));
+                i.putExtra("Image",R.drawable.placeholder);
+                i.putExtra("information1","Place Holder");
+                i.putExtra("information2","place Holder ");
+                startActivity(i);
+            }
+        });
+        EmbellrskImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i.putExtra("Title",getString(R.string.Embellrsktheear));
+                i.putExtra("Image",R.drawable.placeholder);
+                i.putExtra("information1","Place Holder");
+                i.putExtra("information2","place Holder ");
+                startActivity(i);
+            }
+        });
+
 
         return MyView;
     }
