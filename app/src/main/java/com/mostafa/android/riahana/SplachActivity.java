@@ -12,6 +12,7 @@ public class SplachActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splach);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

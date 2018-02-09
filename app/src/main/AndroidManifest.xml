@@ -21,9 +21,10 @@
         <activity android:name=".Login" />
         <activity android:name=".Signup" />
         <activity
-            android:name=".MainActivity"
+            android:name=".NavigationHome"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".EyeleftActivity"></activity>
     </application>
 
 </manifest>

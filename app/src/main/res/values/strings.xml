@@ -28,4 +28,31 @@
     <string name="inquiries">inquiries</string>
     <string name="vision">our vision</string>
     <string name="callus">call us</string>
+
+    <string name="first_button">Lip,Nose And Eyeling Surgery</string>
+    <string name="second_button">Injet the face Legs And Buttocks</string>
+    <string name="third_button">lighten the skin and sensitive areas of glutamium spanish </string>
+    <string name="fourth_button">Lighten the skin and sensetive areas of glutamium spanish </string>
+    <string name="fifth_button">botox and filler injectios</string>
+
+    <string name="eighth_button">weight loss ,tensing and laser body sculpting</string>
+
+    <string name="sixth_button">Removal of Excess hair cellulite and laser white lines</string>
+    <string name="seventh_button">Enilarging and reducing the size of the chiest and tighten the diluton </string>
+
+
+    <string name="item_servecies">SERVICES</string>
+    <string name="item_profile">PROFILE</string>
+    <string name="item_book">BOOKING</string>
+    <string name="item_calculate">CALCULATE THE COST</string>
+    <string name="item_reservations">MY RESERVATIONS</string>
+    <string name="item_coupon">COUPON</string>
+    <string name="item_offers">OFFERS</string>
+    <string name="item_LOGOUT">LOG OUT</string>
+    <string name="chooseyourserv">Choose your services</string>
+    <string name="eyeleftprocess">Eye Left Process</string>
+    <string name="rhinoplastv">Rhinoplasty</string>
+    <string name="theprocessoffateinjection">The Process Of Fat Injection</string>
+    <string name="Embellrsktheear">Embellrsk The Ear</string>
+    <string name="introduction">Introduction</string>
 </resources>

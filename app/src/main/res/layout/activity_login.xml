@@ -69,7 +69,7 @@
                 <Button
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button2"
+                    android:background="@drawable/buttonpink"
                     android:text="@string/login"
                     android:onClick="goon"/>
 
