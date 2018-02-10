@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,6 +24,7 @@ public class Services extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try{
         setContentView(R.layout.activity_eyeleft);
         setStatusBarColored(this);
         textViewTitle = (TextView)findViewById(R.id.servicesTitle);
@@ -48,6 +50,9 @@ public class Services extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+    }catch (Exception e){
+            Log.e("Services"," " +e.getMessage());
+        }
     }
 
     public void backIcon(View view) {

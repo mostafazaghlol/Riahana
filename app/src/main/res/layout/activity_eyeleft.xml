@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@drawable/onesercvicebackground"
     android:orientation="vertical"
     tools:context="com.mostafa.android.riahana.Services">
 
@@ -35,7 +35,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_gravity="center"
-        android:src="@drawable/placeholder"
+        android:src="@drawable/picicon"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp" />
     <TextView
@@ -94,6 +94,26 @@
             android:id="@+id/textInformation2"
             android:text="PlaceHolder"
             android:textColor="@color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/more"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/whitemore" />
+
+        </LinearLayout>
 
     </LinearLayout>
    </ScrollView>

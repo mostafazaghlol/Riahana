@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/homebackgroung"
     android:orientation="vertical"
     android:id="@+id/content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -36,10 +36,12 @@
             android:textColor="@color/white" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/arabic" />
+            android:id="@+id/language"
+            android:src="@drawable/arabiclanguage"
+            android:scaleType="fitCenter"/>
 
 
     </RelativeLayout>
@@ -65,13 +67,13 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt1"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:layout_toRightOf="@id/profile_image"
             android:background="@drawable/buttonorange"
             android:text="@string/first_button" />
@@ -90,13 +92,13 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt2"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:layout_toRightOf="@id/profile_image2"
             android:background="@drawable/buttonblue"
             android:text="@string/second_button" />
@@ -114,13 +116,13 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt3"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:layout_toRightOf="@id/profile_image3"
             android:background="@drawable/buttonyellow"
             android:text="@string/third_button" />
@@ -137,13 +139,13 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt4"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:layout_toRightOf="@id/profile_image4"
             android:background="@drawable/buttonpink"
             android:text="@string/fourth_button"
@@ -162,18 +164,17 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt5"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:layout_toRightOf="@id/profile_image5"
             android:background="@drawable/buttonorange"
             android:text="@string/fifth_button" />
     </RelativeLayout>
-    <!--asfasf-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -186,13 +187,13 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <Button
+        <TextView
             android:id="@+id/bt6"
-            style="@style/ButtonStyle"
+            style="@style/TextView"
             android:background="@drawable/buttonblue"
             android:text="@string/sixth_button"
             android:layout_toRightOf="@id/profile_image6"
@@ -210,12 +211,12 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
-    <Button
+    <TextView
         android:id="@+id/bt7"
-        style="@style/ButtonStyle"
+        style="@style/TextView"
         android:layout_toRightOf="@id/profile_image7"
         android:background="@drawable/buttonyellow"
         android:text="@string/seventh_button"
@@ -233,12 +234,12 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/placeholder"
+            android:src="@drawable/picicon"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
-        <Button
+        <TextView
         android:id="@+id/bt8"
-        style="@style/ButtonStyle"
+        style="@style/TextView"
         android:background="@drawable/buttonpink"
         android:text="@string/eighth_button"
         android:layout_toRightOf="@id/profile_image8"
@@ -249,6 +250,4 @@
     </LinearLayout>
 
     </ScrollView>
-
-    <!--afa-->
 </LinearLayout>

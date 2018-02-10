@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/loginbackground"
     tools:context="com.mostafa.android.riahana.Login">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_marginBottom="30dp"
                 android:text="@string/paragraph"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/green"
                 android:textSize="6pt" />
 
             <EditText
@@ -69,7 +69,8 @@
                 <Button
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttonpink"
+                    android:background="@drawable/buttongreen"
+                    android:textColor="@color/white"
                     android:text="@string/login"
                     android:onClick="goon"/>
 
@@ -103,18 +104,11 @@
                     android:layout_marginLeft="10dp"
                     android:id="@+id/createOne"
                     android:text="@string/CreateAccount"
-                    android:textColor="@color/pinkColor" />
+                    android:textColor="@color/green" />
             </LinearLayout>
 
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageAdds"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/adds" />
     </LinearLayout>
 </ScrollView>

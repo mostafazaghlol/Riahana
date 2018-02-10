@@ -1,11 +1,15 @@
 package com.mostafa.android.riahana;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.InflateException;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,48 +29,41 @@ import com.squareup.picasso.Picasso;
 public class NavigationHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ImageView imageView,navi;
-    Button bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8 ;
     ScrollView scrollView;
     TextView textViewTitle;
     LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        imageView = (ImageView)findViewById(R.id.navi);
-        bt1 = (Button)findViewById(R.id.bt1);
-        bt2 = (Button)findViewById(R.id.bt2);
-        bt3 = (Button)findViewById(R.id.bt3);
-        bt4 = (Button)findViewById(R.id.bt4);
-        bt5 = (Button)findViewById(R.id.bt5);
-        bt6 = (Button)findViewById(R.id.bt6);
-        bt7 = (Button)findViewById(R.id.bt7);
-        bt8 = (Button)findViewById(R.id.bt8);
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
-        linearLayout= (LinearLayout) findViewById(R.id.content);
-        textViewTitle =(TextView)findViewById(R.id.title);
-        navi = (ImageView)findViewById(R.id.navi);
+        try {
+            setContentView(R.layout.activity_main);
+
+            imageView = (ImageView) findViewById(R.id.language);
+
+            scrollView = (ScrollView) findViewById(R.id.scrollView);
+            linearLayout = (LinearLayout) findViewById(R.id.content);
+            textViewTitle = (TextView) findViewById(R.id.title);
+            navi = (ImageView) findViewById(R.id.navi);
 
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(Gravity.LEFT);
-            }
-        });
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
+            final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            navi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    drawer.openDrawer(Gravity.LEFT);
+                }
+            });
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+        }catch(InflateException E){
+            Log.e("The error is "," "+E.getMessage());
+        }
+
+        }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+       final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -76,10 +73,22 @@ public class NavigationHome extends AppCompatActivity
                 fragment =null;
 
             }else {
-                super.onBackPressed();
+                AlertDialog.Builder builder = new AlertDialog.Builder(NavigationHome.this);
+            builder.setTitle(getResources().getString(R.string.quit));
+            builder.setMessage(getResources().getString(R.string.quitQuestion));
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.no), null);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
             }
         }
-    }
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,8 +118,12 @@ public class NavigationHome extends AppCompatActivity
 
         switch (id) {
             case R.id.servecies:
-                changes(R.string.chooseyourserv,R.color.black,R.drawable.black,R.color.yellow);
-                fragment = new ServiesFragment();
+                try {
+                    changes(R.string.chooseyourserv, R.color.black, R.drawable.black, R.color.yellow);
+                    fragment = new ServiesFragment();
+                }catch (Exception e){
+                    Log.e("NavigationHome","The error is  "+e.getMessage());
+                }
                 break;
             case R.id.profile:
                 break;
@@ -144,8 +157,9 @@ public class NavigationHome extends AppCompatActivity
         return true;
     }
 
-    private void changes(int string,int color,int drawable,int colorParent){
+    private void changes(int string,int color,int drawable,int colorParent) throws  Exception {
         scrollView.setVisibility(View.GONE);
+        imageView.setVisibility(View.INVISIBLE);
         textViewTitle.setText(getResources().getString(string));
         textViewTitle.setTextColor(getResources().getColor(color));
         navi.setImageDrawable(getResources().getDrawable(drawable));
@@ -153,8 +167,10 @@ public class NavigationHome extends AppCompatActivity
     }
     private void discardChanges(){
         textViewTitle.setText(getResources().getString(R.string.Home));
+        imageView.setVisibility(View.VISIBLE);
         textViewTitle.setTextColor(getResources().getColor(R.color.white));
         navi.setImageDrawable(getResources().getDrawable(R.drawable.navi));
         linearLayout.setBackgroundColor(getResources().getColor(R.color.green));
+
     }
 }

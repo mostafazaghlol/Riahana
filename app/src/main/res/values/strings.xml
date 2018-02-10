@@ -29,7 +29,7 @@
     <string name="vision">our vision</string>
     <string name="callus">call us</string>
 
-    <string name="first_button">Lip,Nose And Eyeling Surgery</string>
+    <string name="first_button">Lip ,Nose And Eyeling Surgery</string>
     <string name="second_button">Injet the face Legs And Buttocks</string>
     <string name="third_button">lighten the skin and sensitive areas of glutamium spanish </string>
     <string name="fourth_button">Lighten the skin and sensetive areas of glutamium spanish </string>
@@ -56,4 +56,9 @@
     <string name="Embellrsktheear">Embellrsk The Ear</string>
     <string name="introduction">Introduction</string>
     <string name="Rate">RAte</string>
+    <string name="quit">caution Quit</string>
+    <string name="quitQuestion">Do you want to go out ?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="more">M o r e</string>
 </resources>
