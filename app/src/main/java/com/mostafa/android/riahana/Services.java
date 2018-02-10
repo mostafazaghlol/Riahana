@@ -3,6 +3,8 @@ package com.mostafa.android.riahana;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +35,7 @@ public class Services extends AppCompatActivity {
         information2 = (TextView)findViewById(R.id.textInformation2);
         btRate = (Button)findViewById(R.id.RateBt);
         btBooking = (Button)findViewById(R.id.BookingBt);
-        Intent i = getIntent();
+        final Intent i = getIntent();
         textViewTitle.setText(i.getStringExtra("Title"));
         circleImage.setImageResource(i.getIntExtra("Image",R.drawable.placeholder));
         information1.setText(i.getStringExtra("information1"));
@@ -41,13 +43,18 @@ public class Services extends AppCompatActivity {
         btRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(Services.this).create(); //Read Update
-                alertDialog.setTitle("Rate Services");
-                alertDialog.setMessage("this is my app");
+                CustomDialogClass cdd = new CustomDialogClass(Services.this);
+                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cdd.show();
+            }
+        });
+        final Intent bookingIntent = new Intent(this,BookingActivity.class);
+        btBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bookingIntent.putExtra("Title",i.getStringExtra("Title"));
+                startActivity(bookingIntent);
 
-
-
-                alertDialog.show();
             }
         });
     }catch (Exception e){

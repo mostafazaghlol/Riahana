@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class Signup extends AppCompatActivity {
-    ImageView imageViewBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

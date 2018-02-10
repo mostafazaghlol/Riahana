@@ -24,7 +24,8 @@
             android:name=".NavigationHome"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Services"></activity>
+        <activity android:name=".Services" />
+        <activity android:name=".BookingActivity"></activity>
     </application>
 
 </manifest>

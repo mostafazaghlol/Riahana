@@ -61,4 +61,8 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="more">M o r e</string>
+    <string name="RateServices">rate services</string>
+    <string name="Thanks">Thanks</string>
+    <string name="ServicesType">Services Type</string>
+    <string name="TimeandDate"><![CDATA[Time & Date]]></string>
 </resources>
