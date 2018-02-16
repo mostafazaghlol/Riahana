@@ -1,8 +1,10 @@
 package com.mostafa.android.riahana;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +19,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -36,6 +42,7 @@ public class NavigationHome extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
+            setStatusBarColored(this);
             setContentView(R.layout.activity_main);
 
             imageView = (ImageView) findViewById(R.id.language);
@@ -117,6 +124,13 @@ public class NavigationHome extends AppCompatActivity
     public void displaySelectedScreen(int id) {
 
         switch (id) {
+            case R.id.Home:
+                if(fragment != null){
+                    scrollView.setVisibility(View.VISIBLE);
+                    discardChanges();
+                    fragment =null;
+                }
+                break;
             case R.id.servecies:
                 try {
                     changes(R.string.chooseyourserv, R.color.black, R.drawable.black, R.color.yellow);
@@ -126,18 +140,47 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.profile:
+                Intent profileIntent =new Intent(this,profileActivity.class);
+                startActivity(profileIntent);
                 break;
             case R.id.book:
+                Intent bookIntent =new Intent(this,BookingActivity.class);
+                bookIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                startActivity(bookIntent);
                 break;
             case R.id.calculate:
+                Intent CalIntent =new Intent(this,calculateActivity.class);
+                CalIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                startActivity(CalIntent);
                 break;
             case R.id.reservertion:
+                Intent ResIntent =new Intent(this,ReservationsActivity.class);
+//                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                startActivity(ResIntent);
                 break;
             case R.id.coupon:
+                Intent couponIntent=new Intent(this,couponActivity.class);
+//                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                startActivity(couponIntent);
                 break;
             case R.id.offers:
+                Intent offerIntent =new Intent(this,offersActivity.class);
+//                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                startActivity(offerIntent);
                 break;
             case R.id.logout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(NavigationHome.this);
+                builder.setTitle(getResources().getString(R.string.goout));
+                builder.setMessage(getResources().getString(R.string.dogoout));
+                builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.no), null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 break;
         }
         if (fragment != null) {
@@ -170,7 +213,29 @@ public class NavigationHome extends AppCompatActivity
         imageView.setVisibility(View.VISIBLE);
         textViewTitle.setTextColor(getResources().getColor(R.color.white));
         navi.setImageDrawable(getResources().getDrawable(R.drawable.navi));
-        linearLayout.setBackgroundColor(getResources().getColor(R.color.green));
+        linearLayout.setBackground(getResources().getDrawable(R.drawable.homebackgroung));
 
+    }
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable());
+        }
+    }
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }

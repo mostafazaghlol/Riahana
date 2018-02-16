@@ -1,7 +1,6 @@
 package com.mostafa.android.riahana;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,34 +9,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+public class couponActivity extends AppCompatActivity {
 
-public class Login extends AppCompatActivity {
-    TextView textViewCreateOne;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         setStatusBarColored(this);
-
-        textViewCreateOne = (TextView)findViewById(R.id.createOne);
-        final Intent i = new Intent(this,Signup.class);
-
-        textViewCreateOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            startActivity(i);
-            }
-        });
+        setContentView(R.layout.activity_coupon);
     }
 
-    public void goon(View view) {
-        Intent i  = new Intent(this,NavigationHome.class);
-        startActivity(i);
-    }
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
@@ -60,4 +41,5 @@ public class Login extends AppCompatActivity {
         }
         return result;
     }
+
 }

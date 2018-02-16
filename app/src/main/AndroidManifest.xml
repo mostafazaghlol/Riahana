@@ -3,6 +3,9 @@
     package="com.mostafa.android.riahana">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +28,17 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
         <activity android:name=".Services" />
-        <activity android:name=".BookingActivity"></activity>
+        <activity
+            android:name=".BookingActivity"
+            android:parentActivityName=".NavigationHome" />
+        <activity android:name=".profileActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".servicesTypeActivity" />
+        <activity android:name=".calculateActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ReservationsActivity" />
+        <activity android:name=".offersActivity" />
+        <activity android:name=".couponActivity"></activity>
     </application>
 
 </manifest>

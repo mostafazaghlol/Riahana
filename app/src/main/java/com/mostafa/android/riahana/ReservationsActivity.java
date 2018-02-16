@@ -1,43 +1,43 @@
 package com.mostafa.android.riahana;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Login extends AppCompatActivity {
-    TextView textViewCreateOne;
+public class ReservationsActivity extends AppCompatActivity {
+    RecyclerView rv;
+    private List<person> persons;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         setStatusBarColored(this);
-
-        textViewCreateOne = (TextView)findViewById(R.id.createOne);
-        final Intent i = new Intent(this,Signup.class);
-
-        textViewCreateOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            startActivity(i);
-            }
-        });
+        setContentView(R.layout.activity_reservations);
+        persons = new ArrayList<>();
+        persons.add(new person(getResources().getString(R.string.eyeleftprocess), getResources().getString(R.string.getDate), R.drawable.picicon,"cash :100"));
+        persons.add(new person(getResources().getString(R.string.eyeleftprocess),  getResources().getString(R.string.getDate), R.drawable.picicon,"cash :100"));
+        persons.add(new person(getResources().getString(R.string.eyeleftprocess),  getResources().getString(R.string.getDate), R.drawable.picicon ,"cash :100"));
+        rv = (RecyclerView)findViewById(R.id.rv);
+//        rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        RVAdapter adapter = new RVAdapter(persons);
+        rv.setAdapter(adapter);
     }
 
-    public void goon(View view) {
-        Intent i  = new Intent(this,NavigationHome.class);
-        startActivity(i);
-    }
+
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
@@ -59,5 +59,9 @@ public class Login extends AppCompatActivity {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void backicon(View view) {
+        onBackPressed();
     }
 }

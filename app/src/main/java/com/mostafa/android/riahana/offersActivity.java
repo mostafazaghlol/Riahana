@@ -1,42 +1,41 @@
 package com.mostafa.android.riahana;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Login extends AppCompatActivity {
-    TextView textViewCreateOne;
+public class offersActivity extends AppCompatActivity {
+    RecyclerView rv;
+    private List<offers> offersList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         setStatusBarColored(this);
+        setContentView(R.layout.activity_offers);
+        offersList= new ArrayList<>();
+        offersList.add(new offers(getString(R.string.fackoffer),getString(R.string.FakeDate),R.drawable.picicon));
+        offersList.add(new offers(getString(R.string.fackoffer),getString(R.string.FakeDate),R.drawable.picicon));
+        offersList.add(new offers(getString(R.string.fackoffer),getString(R.string.FakeDate),R.drawable.picicon));
+        rv = (RecyclerView)findViewById(R.id.rv2);
+        rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        RVOAdapter adapter = new RVOAdapter(offersList);
+        rv.setAdapter(adapter);
 
-        textViewCreateOne = (TextView)findViewById(R.id.createOne);
-        final Intent i = new Intent(this,Signup.class);
 
-        textViewCreateOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            startActivity(i);
-            }
-        });
-    }
-
-    public void goon(View view) {
-        Intent i  = new Intent(this,NavigationHome.class);
-        startActivity(i);
     }
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
@@ -59,5 +58,9 @@ public class Login extends AppCompatActivity {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void backicon(View view) {
+        onBackPressed();
     }
 }

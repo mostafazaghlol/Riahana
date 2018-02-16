@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    android:orientation="vertical"
+    android:id="@+id/mScrollView"
+    android:fillViewport="true"
+    tools:context="com.mostafa.android.riahana.calculateActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:onClick="backIcon"
+            android:src="@drawable/black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_calculate"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ima1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/whitecircle"
+                android:src="@drawable/pppp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ima2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+
+                android:layout_marginRight="50dp"
+                android:background="@drawable/whitecircle"
+                android:src="@drawable/pppp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ima3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/pic" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/editPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:onClick="getImageFromGalary"
+            android:text="@string/selectYourPic"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/selectServices"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/selectservices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eyeleftprocess"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/Description"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/DescriptionYourAge"
+            android:inputType="textMultiLine"
+            android:textColor="@color/white"
+            android:id="@+id/myedittext"
+            android:textStyle="bold"
+            android:scrollbars="vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white" />
+
+
+        <TextView
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/arrow"
+            android:text="@string/send"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"/>
+</LinearLayout>
+
+</ScrollView>
