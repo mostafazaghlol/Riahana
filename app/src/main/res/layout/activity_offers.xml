@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@drawable/loginbackground"
     android:layout_height="match_parent"
-    tools:context="com.mostafa.android.riahana.offersActivity">
+    tools:context="com.mostafa.android.riahana.offers.offersActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

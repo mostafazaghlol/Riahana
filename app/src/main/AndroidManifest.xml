@@ -37,7 +37,6 @@
         <activity android:name=".calculateActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ReservationsActivity" />
-        <activity android:name=".offersActivity" />
         <activity android:name=".couponActivity"></activity>
     </application>
 

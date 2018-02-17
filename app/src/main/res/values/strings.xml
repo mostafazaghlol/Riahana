@@ -87,4 +87,5 @@
     <string name="item_home">Home</string>
     <string name="InvalidDate">invalid date choose  a future date.</string>
     <string name="again">again</string>
+    <string name="rememberme">Remember me</string>
 </resources>

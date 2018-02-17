@@ -1,13 +1,10 @@
 package com.mostafa.android.riahana;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,15 +19,11 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 public class NavigationHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -144,8 +137,7 @@ public class NavigationHome extends AppCompatActivity
                 startActivity(profileIntent);
                 break;
             case R.id.book:
-                Intent bookIntent =new Intent(this,BookingActivity.class);
-                bookIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+                Intent bookIntent =new Intent(this,Login.class);
                 startActivity(bookIntent);
                 break;
             case R.id.calculate:

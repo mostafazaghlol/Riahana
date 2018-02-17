@@ -2,26 +2,69 @@ package com.mostafa.android.riahana;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
     TextView textViewCreateOne;
+    EditText editTextuser ,editTextpass;
+    String user, pass, lan = "2";
+    Button loginbt,clearbt;
+    CheckBox checkBoxRemember;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setStatusBarColored(this);
+        checkBoxRemember = (CheckBox)findViewById(R.id.ckRemeberme);
+        editTextuser = (EditText)findViewById(R.id.user);
+        editTextpass= (EditText)findViewById(R.id.pass);
+        loginbt = (Button)findViewById(R.id.login);
+        final SharedPreferences sharedPreferences = getSharedPreferences("pref",0);
+        if(sharedPreferences.contains("user")){
+            editTextuser.setText(sharedPreferences.getString("user"," "));
+        }
+        if(sharedPreferences.contains("password")){
+            editTextpass.setText(sharedPreferences.getString("password"," "));
+        }
+        loginbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user = editTextuser.getText().toString().trim();
+                pass = editTextpass.getText().toString().trim();
+                if(checkBoxRemember.isChecked()) {
+                    editor = sharedPreferences.edit();
+                    editor.putString("user", user);
+                    editor.putString("password", pass);
+                    editor.commit();
+                }
+                login();
+            }
+        });
 
         textViewCreateOne = (TextView)findViewById(R.id.createOne);
         final Intent i = new Intent(this,Signup.class);
@@ -33,11 +76,50 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+    public void login(){
+        // Response received from the server
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray("message");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject respons = jsonArray.getJSONObject(i);
+                        String message = respons.getString("message");
+                        int messsageid=respons.getInt("messageID");
 
-    public void goon(View view) {
-        Intent i  = new Intent(this,NavigationHome.class);
-        startActivity(i);
+                        if (messsageid == 0){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                            builder.setMessage(message)
+                                    .setNegativeButton("موافق", null)
+                                    .create()
+                                    .show();
+                        }else if (messsageid == 1){
+//                            JSONArray jsonArray2 = jsonResponse.getJSONArray("data");
+                            Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+                            Intent Bookingintent = new Intent(Login.this,BookingActivity.class);
+                            Bookingintent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
+
+                            Login.this.startActivity(Bookingintent);
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        LoginRequest loginPatiRequest = new LoginRequest(user, pass, lan, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Login.this);
+        queue.add(loginPatiRequest);
+
     }
+
+
+
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
