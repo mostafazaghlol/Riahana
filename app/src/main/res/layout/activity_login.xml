@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/calculatecost"
     tools:context="com.mostafa.android.riahana.Login">
 
     <LinearLayout
@@ -91,6 +91,7 @@
                     android:gravity="right"
                     android:text="@string/forgetPassword"
                     android:textColor="@color/white"
+                    android:id="@+id/forgetpass"
                     android:textStyle="bold" />
             </LinearLayout>
 

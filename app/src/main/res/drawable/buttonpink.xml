@@ -2,7 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_pressed="true" >
         <shape android:shape="rectangle"  >
-            <corners android:radius="3dip" />
+            <corners android:bottomLeftRadius="20dp"
+                android:bottomRightRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp" />
             <stroke android:width="1dip" android:color="@color/pinkColor" />
             <gradient android:angle="-90" android:startColor="@color/pinkColor" android:endColor="@color/pinkColor"  />
         </shape>
@@ -10,9 +13,12 @@
 
     <item android:state_focused="true">
         <shape android:shape="rectangle"  >
-            <corners android:radius="3dip" />
-            <stroke android:width="1dip" android:color="#ffffff" />
-            <solid android:color="#ffffff"/>
+            <corners android:bottomLeftRadius="20dp"
+                android:bottomRightRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp" />
+            <stroke android:width="1dip" android:color="@color/pinkColor" />
+            <solid android:color="@color/pinkColor"/>
         </shape>
     </item>
 

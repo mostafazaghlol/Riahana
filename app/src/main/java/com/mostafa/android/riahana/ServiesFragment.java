@@ -39,7 +39,7 @@ public class ServiesFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     i.putExtra("Title", getString(R.string.eyeleftprocess));
-                    i.putExtra("Image", R.drawable.placeholder);
+                    i.putExtra("Image", R.drawable.face);
                     i.putExtra("information1", "Place Holder");
                     i.putExtra("information2", "place Holder ");
                     startActivity(i);
@@ -49,7 +49,7 @@ public class ServiesFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     i.putExtra("Title", getString(R.string.rhinoplastv));
-                    i.putExtra("Image", R.drawable.placeholder);
+                    i.putExtra("Image", R.drawable.face);
                     i.putExtra("information1", "Place Holder");
                     i.putExtra("information2", "place Holder ");
                     startActivity(i);
@@ -59,7 +59,7 @@ public class ServiesFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     i.putExtra("Title", getString(R.string.theprocessoffateinjection));
-                    i.putExtra("Image", R.drawable.placeholder);
+                    i.putExtra("Image", R.drawable.face);
                     i.putExtra("information1", "Place Holder");
                     i.putExtra("information2", "place Holder ");
                     startActivity(i);
@@ -69,7 +69,7 @@ public class ServiesFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     i.putExtra("Title", getString(R.string.Embellrsktheear));
-                    i.putExtra("Image", R.drawable.placeholder);
+                    i.putExtra("Image", R.drawable.face);
                     i.putExtra("information1", "Place Holder");
                     i.putExtra("information2", "place Holder ");
                     startActivity(i);

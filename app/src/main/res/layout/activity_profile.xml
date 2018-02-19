@@ -7,7 +7,7 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:paddingTop="30dp"
-    android:background="@drawable/onesercvicebackground"
+    android:background="@drawable/oneservices"
     tools:context="com.mostafa.android.riahana.profileActivity">
 
 <LinearLayout
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="backicon"
-            android:src="@drawable/left" />
+            android:src="@drawable/arrow" />
 
         <TextView
             android:layout_width="match_parent"

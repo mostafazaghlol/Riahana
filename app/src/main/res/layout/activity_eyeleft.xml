@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/onesercvicebackground"
+    android:background="@drawable/oneservices"
     android:orientation="vertical"
     tools:context="com.mostafa.android.riahana.Services">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +23,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/black_24dp"
+            android:src="@drawable/arrow"
             android:onClick="backIcon"/>
 
         <TextView
@@ -35,7 +41,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_gravity="center"
-        android:src="@drawable/picicon"
+        android:src="@drawable/face"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp" />
     <TextView
@@ -111,7 +117,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/whitemore" />
+                android:src="@drawable/morewhite" />
 
         </LinearLayout>
 
@@ -141,6 +147,7 @@
             android:layout_marginLeft="5dp"/>
     </LinearLayout>
     </LinearLayout>
-
+</LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

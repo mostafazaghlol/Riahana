@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homebackgroung"
+    android:background="@drawable/home"
     android:orientation="vertical"
     android:id="@+id/content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -23,7 +23,7 @@
             android:id="@+id/navi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/navi" />
+            android:src="@drawable/homeicon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:id="@+id/language"
-            android:src="@drawable/arabiclanguage"
+            android:src="@drawable/arabic"
+            android:onClick="changeLanguage"
             android:scaleType="fitCenter"/>
 
 
@@ -67,7 +68,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/picicon"
+            android:src="@drawable/face"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 

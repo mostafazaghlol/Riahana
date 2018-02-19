@@ -37,7 +37,7 @@ public class Services extends AppCompatActivity {
         btBooking = (Button)findViewById(R.id.BookingBt);
         final Intent i = getIntent();
         textViewTitle.setText(i.getStringExtra("Title"));
-        circleImage.setImageResource(i.getIntExtra("Image",R.drawable.placeholder));
+        circleImage.setImageResource(i.getIntExtra("Image",R.drawable.face));
         information1.setText(i.getStringExtra("information1"));
         information2.setText(i.getStringExtra("information2"));
         btRate.setOnClickListener(new View.OnClickListener() {

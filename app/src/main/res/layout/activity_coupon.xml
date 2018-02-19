@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homebackgroung"
+    android:background="@drawable/home"
     tools:context="com.mostafa.android.riahana.couponActivity">
     <LinearLayout
         android:layout_width="match_parent"

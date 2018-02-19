@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,15 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         SharedPreferences sharedPreferences = getSharedPreferences("pref",0);
+         Login ob = new Login();
+        if(sharedPreferences.contains("user") && sharedPreferences.getInt("login",0)==1) {
+            Toast.makeText(this, "تم تسجيل الدخول", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent i = new Intent(BookingActivity.this,Login.class);
+            BookingActivity.this.startActivity(i);
+            finish();
+        }
         setContentView(R.layout.activity_booking);
         Intent i = getIntent();
         Calendar cal = Calendar.getInstance();
@@ -59,6 +70,9 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         dateTextView = (TextView)findViewById(R.id.serviceType2);
         ServiceType = (ImageView)findViewById(R.id.serviceTypeImage);
         TimeTextView  = (TextView)findViewById(R.id.serviceType22);
+        String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
+        dateTextView.setText(currentdatreString2);
+        TimeTextView.setText("At " + hourofday + ":" + minute);
 
         //hourOfDay =hourOfDay-12;
         Time = (ImageView)findViewById(R.id.Time);

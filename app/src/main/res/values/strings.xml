@@ -56,10 +56,10 @@
     <string name="Embellrsktheear" translatable="false">Embellrsk The Ear</string>
     <string name="introduction">Introduction</string>
     <string name="Rate">Rate</string>
-    <string name="quit" translatable="false">caution Quit</string>
-    <string name="quitQuestion" translatable="false">Do you want to go out ?</string>
-    <string name="yes" translatable="false">yes</string>
-    <string name="no" translatable="false">no</string>
+    <string name="quit">caution Quit</string>
+    <string name="quitQuestion">Do you want to go out ?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
     <string name="more">M o r e</string>
     <string name="RateServices">rate services</string>
     <string name="Thanks">Thanks</string>
@@ -82,10 +82,11 @@
     <string name="Offers">Offers</string>
     <string name="fackoffer">50% Eye Left Pocessor</string>
     <string name="FakeDate">Fack data</string>
-    <string name="goout" translatable="false">Logout</string>
-    <string name="dogoout" translatable="false">Do you want to go out ?</string>
+    <string name="goout">Logout</string>
+    <string name="dogoout">Do you want to go out ?</string>
     <string name="item_home">Home</string>
     <string name="InvalidDate">invalid date choose  a future date.</string>
     <string name="again">again</string>
     <string name="rememberme">Remember me</string>
+    <string name="checkit">search</string>
 </resources>

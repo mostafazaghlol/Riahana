@@ -67,4 +67,14 @@
     <string name="getDate">البيانات: 20-10-2017</string>
     <string name="EyelidTightening">جفن تشديد</string>
     <string name="item_home">الصفحة الرئيسية</string>
+    <string name="InvalidDate">ميعاد غير مناسب</string>
+    <string name="again">"مره اخرى "</string>
+    <string name="rememberme">"تذكرنى "</string>
+    <string name="checkit">بحث</string>
+    <string name="dogoout" translatable="false">هل تريد الخروج ؟</string>
+    <string name="goout" translatable="false">الخروج</string>
+    <string name="quit" translatable="false">خروج</string>
+    <string name="quitQuestion" translatable="false">هل تريد الخروج ؟</string>
+    <string name="yes" translatable="false">نعم</string>
+    <string name="no" translatable="false">لا</string>
 </resources>

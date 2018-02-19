@@ -3,6 +3,7 @@ package com.mostafa.android.riahana;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Locale;
 
 public class NavigationHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,12 +35,15 @@ public class NavigationHome extends AppCompatActivity
     ScrollView scrollView;
     TextView textViewTitle;
     LinearLayout linearLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             setStatusBarColored(this);
             setContentView(R.layout.activity_main);
+//            loadLocale();
 
             imageView = (ImageView) findViewById(R.id.language);
 
@@ -126,7 +133,7 @@ public class NavigationHome extends AppCompatActivity
                 break;
             case R.id.servecies:
                 try {
-                    changes(R.string.chooseyourserv, R.color.black, R.drawable.black, R.color.yellow);
+                    changes(R.string.chooseyourserv, R.color.black, R.drawable.homeblackicon, R.color.yellow);
                     fragment = new ServiesFragment();
                 }catch (Exception e){
                     Log.e("NavigationHome","The error is  "+e.getMessage());
@@ -137,7 +144,8 @@ public class NavigationHome extends AppCompatActivity
                 startActivity(profileIntent);
                 break;
             case R.id.book:
-                Intent bookIntent =new Intent(this,Login.class);
+                Intent bookIntent =new Intent(this,BookingActivity.class);
+                bookIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
                 startActivity(bookIntent);
                 break;
             case R.id.calculate:
@@ -229,5 +237,40 @@ public class NavigationHome extends AppCompatActivity
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+    private Locale myLocale;
+
+    public void changeLang(String lang)
+    {
+        if (lang.equalsIgnoreCase(""))
+            return;
+        myLocale = new Locale(lang);
+        saveLocale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+recreate();
+    }
+
+    public void saveLocale(String lang)
+    {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.commit();
+    }
+
+    public void loadLocale()
+    {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        changeLang(language);
+    }
+
+    public void changeLanguage(View view) {
+        changeLang("ar");
     }
 }
