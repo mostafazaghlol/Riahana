@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/backimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:onClick="backicon"
             android:src="@drawable/arrow" />
 
@@ -27,9 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="@string/item_profile"
+            android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="7pt" />
+            android:textAppearance="?android:textAppearanceLarge" />
 
 
         <EditText
@@ -38,6 +39,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
+            android:id="@+id/name"
             android:hint="@string/Fullname"
             android:inputType="text"
             android:shadowColor="@color/white"
@@ -50,6 +52,7 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
             android:hint="@string/Phone"
+            android:id="@+id/phone"
             android:inputType="number"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
@@ -62,6 +65,7 @@
             android:backgroundTint="@color/white"
             android:hint="@string/email"
             android:inputType="text"
+            android:id="@+id/emailaddress"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
@@ -72,6 +76,7 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             android:hint="@string/password"
+            android:id="@+id/passwordpro"
             android:inputType="textPassword"
             android:shadowColor="@color/white"
             android:textColor="@color/white"

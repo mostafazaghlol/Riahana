@@ -1,153 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/oneservices"
     android:orientation="vertical"
     tools:context="com.mostafa.android.riahana.Services">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow"
-            android:onClick="backIcon"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_servecies"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/servicesImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center"
-        android:src="@drawable/face"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="2dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="PlaceHolder"
-        android:id="@+id/servicesTitle"
-        android:textColor="@color/white"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:layout_marginBottom="30dp"
-       >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:id="@+id/id1"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/introduction"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/white"/>
-    <View android:background="#ffffff"
-        android:layout_width = "match_parent"
-        android:layout_height="1dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textInformation"
-        android:text="PlaceHolder"
-        android:textColor="@color/white"/>
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/introduction"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/white"/>
-        <View android:background="#ffffff"
-            android:layout_width = "match_parent"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textInformation2"
-            android:text="PlaceHolder"
-            android:textColor="@color/white"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:onClick="backIcon"
+                android:src="@drawable/arrow" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@string/more"
-                android:textAllCaps="true"
+                android:text="@string/item_servecies"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/servicesImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/face"
+            android:layout_below="@id/id1"
+            android:layout_centerHorizontal="true"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/servicesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@id/servicesImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="PlaceHolder"
+            android:textColor="@color/white" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_below="@id/servicesTitle"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/introduction"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/white" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/morewhite" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/textInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PlaceHolder"
+                android:textColor="@color/white" />
+
+
 
         </LinearLayout>
 
-    </LinearLayout>
-   </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="30dp">
-        <Button
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/buttonyellow"
-            android:text="@string/Rate"
-            android:layout_marginRight="5dp"
-            android:id="@+id/RateBt"/>
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonpink"
-            android:text="@string/item_book"
-            android:id="@+id/BookingBt"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
-    </ScrollView>
+            <Button
+                android:id="@+id/RateBt"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/buttonyellow"
+                android:text="@string/Rate" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/BookingBt"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/buttonpink"
+                android:text="@string/item_book" />
+        </LinearLayout>
+
+
+</RelativeLayout>

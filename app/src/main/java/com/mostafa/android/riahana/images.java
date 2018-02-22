@@ -10,6 +10,8 @@ public class images {
     static Uri imageUri;
     static int x=0;
     static int y=0;
+    static int login=0;
+    static String lang="1";
 
     public static Uri getImageUri() {
         return imageUri;

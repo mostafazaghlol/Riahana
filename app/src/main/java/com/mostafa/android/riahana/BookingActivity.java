@@ -2,57 +2,70 @@ package com.mostafa.android.riahana;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-public class BookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
-    TextView titelTextview, dateTextView,TimeTextView;
-    ImageView ServiceType,Time;
-    int millisecond,second,minute,hour,hourofday,dayofyear,year,dayofweek,dayofmonth,month;
+public class BookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    TextView titelTextview, dateTextView, TimeTextView;
+    RelativeLayout ServiceType, Time;
+    int millisecond, second, minute, hour, hourofday, dayofyear, year, dayofweek, dayofmonth, month;
     android.support.v4.app.DialogFragment TimePicker;
     android.support.v4.app.DialogFragment datapicker;
-
+    int choosedYear, choosedMonth, choosedDay;
+    Button finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         SharedPreferences sharedPreferences = getSharedPreferences("pref",0);
-         Login ob = new Login();
-        if(sharedPreferences.contains("user") && sharedPreferences.getInt("login",0)==1) {
-            Toast.makeText(this, "تم تسجيل الدخول", Toast.LENGTH_SHORT).show();
-        }else {
-            Intent i = new Intent(BookingActivity.this,Login.class);
+        final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
+        Login ob = new Login();
+        if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+            if (images.lang == "1") {
+                Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "تم تسجيل الدخول", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Intent i = new Intent(BookingActivity.this, Login.class);
+            images.login = 2;
             BookingActivity.this.startActivity(i);
             finish();
         }
         setContentView(R.layout.activity_booking);
-        Intent i = getIntent();
+        final Intent i = getIntent();
+        finish = (Button) findViewById(R.id.finish);
         Calendar cal = Calendar.getInstance();
-
         millisecond = cal.get(Calendar.MILLISECOND);
         second = cal.get(Calendar.SECOND);
         minute = cal.get(Calendar.MINUTE);
@@ -66,81 +79,108 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         dayofmonth = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
 
-        titelTextview = (TextView)findViewById(R.id.serviceType);
-        dateTextView = (TextView)findViewById(R.id.serviceType2);
-        ServiceType = (ImageView)findViewById(R.id.serviceTypeImage);
-        TimeTextView  = (TextView)findViewById(R.id.serviceType22);
+        titelTextview = (TextView) findViewById(R.id.serviceType);
+        dateTextView = (TextView) findViewById(R.id.serviceType2);
+        ServiceType = (RelativeLayout) findViewById(R.id.serviceTypeImage);
+        TimeTextView = (TextView) findViewById(R.id.serviceType22);
         String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
         dateTextView.setText(currentdatreString2);
         TimeTextView.setText("At " + hourofday + ":" + minute);
-
+        final String id_client = sharedPreferences.getString("client_id", " ");
+        final String x = i.getStringExtra("id");
         //hourOfDay =hourOfDay-12;
-        Time = (ImageView)findViewById(R.id.Time);
-        if(i.getStringExtra("Title")!= ""){
+        Time = (RelativeLayout) findViewById(R.id.Time);
+        if (i.getStringExtra("Title") != "") {
             titelTextview.setText(i.getStringExtra("Title"));
-        }else {
+        } else {
             titelTextview.setText(getResources().getString(R.string.EyelidTightening));
 
         }
-        final Intent intent = new Intent(this,servicesTypeActivity.class);
-        intent.putExtra("cat",0);
+        final Intent intent = new Intent(this, servicesTypeActivity.class);
+        intent.putExtra("cat", 0);
         ServiceType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                finish();
-                startActivity(intent);
-                images.y = 1;
-            }catch (Exception e){
-                Log.e("onclick ", "onClick: error"+e.getMessage());
-            }
+                try {
+                    finish();
+                    startActivity(intent);
+                    images.y = 1;
+                } catch (Exception e) {
+                    Log.e("onclick ", "onClick: error" + e.getMessage());
+                }
             }
         });
         Time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(images.y==0){
+                if (images.y == 0) {
                     Toast.makeText(BookingActivity.this, getResources().getString(R.string.chooseyourserv), Toast.LENGTH_SHORT).show();
-                }else {
-                   getTime();
+                } else {
+                    getTime();
                 }
 
             }
         });
 
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray messagearray = jsonObject.optJSONArray("message");
+                            for (int i = 0; i < messagearray.length(); i++) {
+                                String message = messagearray.getJSONObject(i).getString("message");
+                                Toast.makeText(BookingActivity.this, " " + message, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                BookRequest bookRequest = new BookRequest(id_client, x, "10/0/0", images.lang, listener);
+                RequestQueue queue = Volley.newRequestQueue(BookingActivity.this);
+                queue.add(bookRequest);
+            }
+        });
+
     }
-    int choosedYear,choosedMonth,choosedDay;
+
 
     @Override
     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-            Calendar c  = Calendar.getInstance();
-            c.set(Calendar.YEAR,mYear);
-            c.set(Calendar.MONTH,mMonth);
-            c.set(Calendar.DAY_OF_MONTH,mDay);
-            String currentdatreString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-            choosedYear = mYear;
-            choosedDay = mDay;
-            choosedMonth = mMonth;
-            dateTextView.setText(currentdatreString);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, mYear);
+        c.set(Calendar.MONTH, mMonth);
+        c.set(Calendar.DAY_OF_MONTH, mDay);
+        String currentdatreString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        choosedYear = mYear;
+        choosedDay = mDay;
+        choosedMonth = mMonth;
+        dateTextView.setText(currentdatreString);
 
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int mHourOfDay, int mMinute) {
 
-        String AM_PM ;
-        int mHour=mHourOfDay;
-        if(mHourOfDay < 12) {
+        String AM_PM;
+        int mHour = mHourOfDay;
+        if (mHourOfDay < 12) {
             AM_PM = "AM";
         } else {
-            mHourOfDay = mHourOfDay-12;
+            mHourOfDay = mHourOfDay - 12;
             AM_PM = "PM";
         }
-        if(choosedYear>=year && choosedMonth>=month&&choosedDay>=dayofmonth && mHour >= hourofday) {
+        if (choosedYear >= year && choosedMonth >= month && choosedDay >= dayofmonth && mHour >= hourofday) {
 
             TimeTextView.setText("At " + mHourOfDay + ":" + minute + " " + AM_PM);
-        }else {
-            Toast.makeText(this, ""+getResources().getString(R.string.InvalidDate), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "" + getResources().getString(R.string.InvalidDate), Toast.LENGTH_SHORT).show();
             getTime();
         }
 
@@ -152,8 +192,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     }
 
     public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = context.getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             int statusBarHeight = getStatusBarHeight(context);
@@ -165,6 +204,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
 //            view.setBackground(context.getResources().getDrawable());
         }
     }
+
     public static int getStatusBarHeight(Activity context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -174,15 +214,33 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         return result;
     }
 
-    public void finish(View view) {
-        Toast.makeText(this, " "+dayofmonth, Toast.LENGTH_SHORT).show();
-    }
 
-    public void getTime(){
+    public void getTime() {
         TimePicker = new TimePickerFragment();
         TimePicker.show(getSupportFragmentManager(), "time picker");
         datapicker = new datePickerFragment();
         datapicker.show(getSupportFragmentManager(), "date picker");
+    }
+
+
+    public class BookRequest extends StringRequest {
+        private final static String url = "http://raihana-eg.com/site_api/api/booking_api";
+        private Map<String, String> params;
+
+
+        public BookRequest(String id_client, String id_serivce, String datetime, String lang, Response.Listener<String> listener) {
+            super(Method.POST, url, listener, null);
+            params = new HashMap<>();
+            params.put("id_client", id_client);
+            params.put("id_serivce", id_serivce);
+            params.put("datetime", datetime);
+            params.put("lang", lang);
+        }
+
+        @Override
+        protected Map<String, String> getParams() {
+            return params;
+        }
     }
 
 }

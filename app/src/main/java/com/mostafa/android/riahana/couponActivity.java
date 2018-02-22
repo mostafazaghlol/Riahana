@@ -42,4 +42,7 @@ public class couponActivity extends AppCompatActivity {
         return result;
     }
 
+    public void backIcon(View view) {
+        onBackPressed();
+    }
 }

@@ -1,6 +1,8 @@
 package com.mostafa.android.riahana;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -12,29 +14,68 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReservationsActivity extends AppCompatActivity {
     RecyclerView rv;
     private List<person> persons;
-
+    private Context context;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarColored(this);
         setContentView(R.layout.activity_reservations);
+        context = this;
         persons = new ArrayList<>();
-        persons.add(new person(getResources().getString(R.string.eyeleftprocess), getResources().getString(R.string.getDate), R.drawable.picicon,"cash :100"));
-        persons.add(new person(getResources().getString(R.string.eyeleftprocess),  getResources().getString(R.string.getDate), R.drawable.picicon,"cash :100"));
-        persons.add(new person(getResources().getString(R.string.eyeleftprocess),  getResources().getString(R.string.getDate), R.drawable.picicon ,"cash :100"));
-        rv = (RecyclerView)findViewById(R.id.rv);
-//        rv.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        rv.setLayoutManager(llm);
-        RVAdapter adapter = new RVAdapter(persons);
-        rv.setAdapter(adapter);
+        progressBar = (ProgressBar)findViewById(R.id.progress3);
+        final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
+        String id_client = sharedPreferences.getString("client_id"," ");
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    progressBar.setVisibility(View.GONE);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.optJSONArray("data");
+                    for (int i=0;i<jsonArray.length();i++){
+                        String service_name=jsonArray.getJSONObject(i).getString("service_name");
+                        String date_time=jsonArray.getJSONObject(i).getString("date_time");
+                        String service_img=jsonArray.getJSONObject(i).getString("service_img");
+                        persons.add(new person(service_name,date_time,service_img));
+                    }
+                    rv = (RecyclerView)findViewById(R.id.rv);
+                    LinearLayoutManager llm = new LinearLayoutManager(ReservationsActivity.this);
+                    rv.setLayoutManager(llm);
+                    RVAdapter adapter = new RVAdapter(persons,context);
+                    rv.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        newReservartion newReservartion = new newReservartion(id_client,images.lang, listener);
+        RequestQueue queue = Volley.newRequestQueue(ReservationsActivity.this);
+        queue.add(newReservartion);
+
+
     }
 
 
@@ -63,5 +104,22 @@ public class ReservationsActivity extends AppCompatActivity {
 
     public void backicon(View view) {
         onBackPressed();
+    }
+
+    public class newReservartion extends StringRequest{
+        private final static String url="http://raihana-eg.com/site_api/api/mynewbooking_api";
+        private Map<String,String> params;
+
+        public newReservartion(String id_client, String lang, Response.Listener<String> listener){
+            super(Method.POST,url,listener,null);
+            params = new HashMap<>();
+            params.put("id_client",id_client);
+            params.put("lang",lang);
+        }
+
+        @Override
+        protected Map<String, String> getParams(){
+            return params;
+        }
     }
 }

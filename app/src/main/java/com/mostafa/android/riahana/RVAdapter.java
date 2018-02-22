@@ -1,5 +1,6 @@
 package com.mostafa.android.riahana;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -18,9 +21,10 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
     List<person> persons;
-
-    RVAdapter(List<person> persons){
+    private Context mContext;
+    RVAdapter(List<person> persons,Context context){
         this.persons = persons;
+        mContext = context;
     }
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -38,8 +42,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.personName.setText(persons.get(i).name);
         personViewHolder.personAge.setText(persons.get(i).age);
-        personViewHolder.cash.setText(persons.get(i).cash);
-        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
+//        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
+        Picasso.with(mContext).load(persons.get(i).photoId).into(personViewHolder.personPhoto);
     }
 
     @Override
@@ -52,17 +56,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         TextView personName;
         TextView personAge;
         ImageView personPhoto;
-        TextView cash;
 
         PersonViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+            cv = (CardView) itemView.findViewById(R.id.cv2);
             cv.setCardBackgroundColor(Color.WHITE);
             cv.setRadius(100);
             personName = (TextView) itemView.findViewById(R.id.services_name);
             personAge = (TextView) itemView.findViewById(R.id.services_date);
             personPhoto = (ImageView) itemView.findViewById(R.id.person_photo);
-            cash = (TextView)itemView.findViewById(R.id.services_cash);
         }
     }
 }

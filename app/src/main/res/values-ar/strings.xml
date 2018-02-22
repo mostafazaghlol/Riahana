@@ -77,4 +77,7 @@
     <string name="quitQuestion" translatable="false">هل تريد الخروج ؟</string>
     <string name="yes" translatable="false">نعم</string>
     <string name="no" translatable="false">لا</string>
+    <string name="TimeandDate">الوقت والتاريخ</string>
+    <string name="item_contact">اتصل بنا</string>
+    <string name="item_about">عن التطبيق</string>
 </resources>

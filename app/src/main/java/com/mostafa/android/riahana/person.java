@@ -7,13 +7,11 @@ package com.mostafa.android.riahana;
 public class person {
     String name;
     String age;
-    int photoId;
-    String cash;
+    String photoId;
 
-    person(String name, String age, int photoId,String mcash) {
+    person(String name, String age, String photoId) {
         this.name = name;
         this.age = age;
         this.photoId = photoId;
-        this.cash = mcash;
     }
 }

@@ -20,14 +20,23 @@
             android:id="@+id/calculate"
             android:title="@string/item_calculate" />
         <item
-            android:id="@+id/reservertion"
+            android:id="@+id/newReservertion"
             android:title="@string/item_reservations" />
+        <item
+            android:id="@+id/oldReservertion"
+            android:title="@string/item_reservations2" />
         <item
             android:id="@+id/coupon"
             android:title="@string/item_coupon" />
         <item
             android:id="@+id/offers"
             android:title="@string/item_offers" />
+        <item
+            android:id="@+id/contact"
+            android:title="@string/item_contact" />
+        <item
+            android:id="@+id/Aboutapi"
+            android:title="@string/item_about" />
         <item
             android:id="@+id/logout"
             android:title="@string/item_LOGOUT" />

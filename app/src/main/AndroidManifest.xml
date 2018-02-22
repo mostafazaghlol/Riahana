@@ -14,31 +14,61 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplachActivity">
+        <activity
+            android:name=".SplachActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" />
-        <activity android:name=".Signup" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationHome"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Services" />
+        <activity
+            android:name=".Services"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BookingActivity"
-            android:parentActivityName=".NavigationHome" />
-        <activity android:name=".profileActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".servicesTypeActivity" />
-        <activity android:name=".calculateActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ReservationsActivity" />
-        <activity android:name=".couponActivity"></activity>
-        <activity android:name=".offersActivity"></activity>
+            android:parentActivityName=".NavigationHome"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".servicesTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calculateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ReservationsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".couponActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".offersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".About_us"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Contact_us"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ServicesActivity" />
+        <activity android:name=".ServicesDetalisActivity"></activity>
     </application>
 
 </manifest>

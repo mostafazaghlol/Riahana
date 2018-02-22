@@ -29,22 +29,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
+    //initalization of variables.
     TextView textViewCreateOne,forgetpass;
     EditText editTextuser, editTextpass;
     String user, pass, lan = "2";
-    Button loginbt, clearbt;
+    Button loginbt;
     CheckBox checkBoxRemember;
     SharedPreferences.Editor editor;
 
+    //onCreate method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setStatusBarColored(this);
+
+
+        //views
         checkBoxRemember = (CheckBox) findViewById(R.id.ckRemeberme);
         editTextuser = (EditText) findViewById(R.id.user);
         editTextpass = (EditText) findViewById(R.id.pass);
         loginbt = (Button) findViewById(R.id.login);
+
+
+        //forgetpassword process.
         forgetpass = (TextView)findViewById(R.id.forgetpass);
         forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +63,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+        //sharedPreferences retrive  user and password.
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
         if (sharedPreferences.contains("user")) {
             editTextuser.setText(sharedPreferences.getString("user", " "));
@@ -63,13 +71,16 @@ public class Login extends AppCompatActivity {
         if (sharedPreferences.contains("password")) {
             editTextpass.setText(sharedPreferences.getString("password", " "));
         }
+        //login process.
         loginbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginbt.setBackgroundResource(R.drawable.buttongreen);
+                Toast.makeText(Login.this, "i clicked the button ", Toast.LENGTH_SHORT).show();
                 user = editTextuser.getText().toString().trim();
                 pass = editTextpass.getText().toString().trim();
                 if (checkBoxRemember.isChecked()) {
+                    //sharedPreferences editor to save user and password.
                     editor = sharedPreferences.edit();
                     editor.putString("user", user);
                     editor.putString("password", pass);
@@ -78,7 +89,7 @@ public class Login extends AppCompatActivity {
                 login(user, pass, lan);
             }
         });
-
+        //open Signup activity .
         textViewCreateOne = (TextView) findViewById(R.id.createOne);
         final Intent i = new Intent(this, Signup.class);
 
@@ -91,6 +102,7 @@ public class Login extends AppCompatActivity {
     }
 
 
+    //login process {xuer --> username,xpass -->password ,xlan -->language}
     public void login(String xuser, String xpass, String xlan) {
         // Response received from the server
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -112,13 +124,27 @@ public class Login extends AppCompatActivity {
                         } else if (messsageid == 1) {
                             Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                             Intent Bookingintent = new Intent(Login.this, BookingActivity.class);
+                            Intent Profile = new Intent(Login.this, profileActivity.class);
                             Bookingintent.putExtra("Title", getResources().getString(R.string.eyeleftprocess));
                             editor.putInt("login",1);
+                            JSONArray jsondataArray = jsonResponse.getJSONArray("data");
+                            JSONObject jsondataObject = jsondataArray.getJSONObject(0);
+                            String fname = jsondataObject.optString("fname_admin");
+                            String Client_id = jsondataObject.optString("client_id");
+                            String user_phone = jsondataObject.optString("user_phone");
+                            editor.putString("fname",fname);
+                            editor.putString("client_id",Client_id);
+                            editor.putString("user_phone",user_phone);
                             editor.commit();
-                            Login.this.startActivity(Bookingintent);
+                            if(images.login == 2) {
+                                Login.this.startActivity(Bookingintent);
+                            }else if(images.login ==1){
+                                Login.this.startActivity(Profile);
+                            }
                             finish();
                         }
                     }
+
 
 
                 } catch (JSONException e) {
@@ -127,13 +153,13 @@ public class Login extends AppCompatActivity {
             }
         };
 
-        LoginRequest loginPatiRequest = new LoginRequest(user, pass, lan, responseListener);
+        LoginRequest loginPatiRequest = new LoginRequest(user, pass, images.lang, responseListener);
         RequestQueue queue = Volley.newRequestQueue(Login.this);
         queue.add(loginPatiRequest);
 
     }
 
-
+    //set Color .
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = context.getWindow();
@@ -147,7 +173,6 @@ public class Login extends AppCompatActivity {
 //            view.setBackground(context.getResources().getDrawable());
         }
     }
-
     public static int getStatusBarHeight(Activity context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
