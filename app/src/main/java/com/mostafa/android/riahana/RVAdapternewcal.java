@@ -40,7 +40,7 @@ public class RVAdapternewcal extends RecyclerView.Adapter<RVAdapternewcal.Person
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.Cost.setText("cost : "+calculates.get(i).cost);
-        personViewHolder.id.setText("id : "+calculates.get(i).id);
+        personViewHolder.id.setText("Comment :  " + calculates.get(i).id);
         Picasso.with(mContext).load(calculates.get(i).image).into(personViewHolder.calphoto);
     }
 
@@ -57,12 +57,12 @@ public class RVAdapternewcal extends RecyclerView.Adapter<RVAdapternewcal.Person
 
         PersonViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv9);
+            cv = itemView.findViewById(R.id.cv9);
             cv.setCardBackgroundColor(Color.WHITE);
             cv.setRadius(100);
-            Cost = (TextView) itemView.findViewById(R.id.cost2);
-            id= (TextView) itemView.findViewById(R.id.idtext2);
-            calphoto = (ImageView) itemView.findViewById(R.id.person_photo2);
+            Cost = itemView.findViewById(R.id.cost2);
+            id = itemView.findViewById(R.id.idtext2);
+            calphoto = itemView.findViewById(R.id.person_photo2);
         }
     }
 }

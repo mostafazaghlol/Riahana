@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -43,6 +42,29 @@ public class HomeFragment extends Fragment {
     TextView textview;
     ProgressBar progressBar;
 
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +77,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Intent i2 = new Intent(getActivity(),ServicesDetalisActivity.class);
-        progressBar = (ProgressBar) MyView.findViewById(R.id.progress10);
+        progressBar = MyView.findViewById(R.id.progress10);
         servicesDetalis = new ArrayList<>();
         final Intent i22 = new Intent(getActivity(), Services.class);
 
@@ -72,10 +94,12 @@ public class HomeFragment extends Fragment {
                         String description = jsonArray.getJSONObject(i).getString("description");
                         String service_img = jsonArray.getJSONObject(i).getString("service_img");
                         String Color = jsonArray.getJSONObject(i).getString("color");
-                        servicesDetalis.add(new services(service_name,id_subservice,description,service_img,Color));
+                        int countrate = jsonArray.getJSONObject(i).getInt("count_rate");
+                        servicesDetalis.add(new services(service_name, id_subservice, description, service_img, Color, countrate));
                     }
+
                     serviceArrayAdapter adapter = new serviceArrayAdapter(getActivity(),servicesDetalis);
-                    listView = (ListView)MyView.findViewById(R.id.list_item2);
+                    listView = MyView.findViewById(R.id.list_item2);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -88,6 +112,8 @@ public class HomeFragment extends Fragment {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } catch (Exception e) {
+                    Log.e("Exception", e.getMessage());
                 }
 
             }
@@ -96,29 +122,6 @@ public class HomeFragment extends Fragment {
         HomeRequest2 homeRequest2 = new HomeRequest2(images.lang, listener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(homeRequest2);
-    }
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
-        }
-    }
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public class HomeRequest2 extends StringRequest {

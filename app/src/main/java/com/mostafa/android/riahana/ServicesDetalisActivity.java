@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -14,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,75 +35,6 @@ public class ServicesDetalisActivity extends AppCompatActivity {
     TextView textview,tx;
     ProgressBar progressBar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStatusBarColored(this);
-        setContentView(R.layout.activity_services_detalis);
-        progressBar = (ProgressBar) findViewById(R.id.progress);
-        servicesDetalis = new ArrayList<services>();
-        textview = (TextView) findViewById(R.id.textServices);
-        tx = (TextView)findViewById(R.id.txnoser);
-        Intent i = getIntent();
-        textview.setText(i.getStringExtra("serviceName"));
-        final Intent i2 = new Intent(this, Services.class);
-        Response.Listener<String> listener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    progressBar.setVisibility(View.GONE);
-                    tx.setVisibility(View.GONE);
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.optJSONArray("data");
-                    if(jsonArray.getJSONObject(0).has("service_name")){
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                        String service_name = jsonArray.getJSONObject(i).getString("service_name");
-                        String id_subservice = jsonArray.getJSONObject(i).getString("id_subservice");
-                        String description = jsonArray.getJSONObject(i).getString("description");
-                        String service_img = jsonArray.getJSONObject(i).getString("service_img");
-                        String color= jsonArray.getJSONObject(i).getString("color");
-                        servicesDetalis.add(new services(service_name,id_subservice,description,service_img,color));
-                    }
-                    }else{
-                        tx.setVisibility(View.VISIBLE);
-                        String message=jsonArray.getJSONObject(0).getString("message");
-                        tx.setText(message);
-                    }
-
-                    serviceArrayAdapter adapter = new serviceArrayAdapter(ServicesDetalisActivity.this,servicesDetalis);
-                    listView = (ListView) findViewById(R.id.list_item);
-                    listView.setAdapter(adapter);
-
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                        {
-//                                i2.putExtra("imageurl",imagesurl.get(position));
-//                                i2.putExtra("description",descriptions.get(position));
-//                                i2.putExtra("name",servicesname.get(position));
-                                i2.putExtra("id",servicesDetalis.get(position).ids);
-                                ServicesDetalisActivity.this.startActivity(i2);
-//                                finish();
-
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-
-        ServiceRequest2 serviceRequest2 = new ServiceRequest2(images.lang, i.getStringExtra("id"), listener);
-        RequestQueue queue = Volley.newRequestQueue(ServicesDetalisActivity.this);
-        queue.add(serviceRequest2);
-
-    }
-
-    public void backIcon(View view) {
-        onBackPressed();
-    }
     public static void setStatusBarColored(Activity context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = context.getWindow();
@@ -125,6 +56,79 @@ public class ServicesDetalisActivity extends AppCompatActivity {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStatusBarColored(this);
+        setContentView(R.layout.activity_services_detalis);
+        progressBar = findViewById(R.id.progress);
+        servicesDetalis = new ArrayList<services>();
+        textview = findViewById(R.id.textServices);
+        tx = findViewById(R.id.txnoser);
+        Intent i = getIntent();
+        textview.setText(i.getStringExtra("serviceName"));
+        final Intent i2 = new Intent(this, Services.class);
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    progressBar.setVisibility(View.GONE);
+                    tx.setVisibility(View.GONE);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.optJSONArray("data");
+                    if(jsonArray.getJSONObject(0).has("service_name")){
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                        String service_name = jsonArray.getJSONObject(i).getString("service_name");
+                        String id_subservice = jsonArray.getJSONObject(i).getString("id_subservice");
+                        String description = jsonArray.getJSONObject(i).getString("description");
+                        String service_img = jsonArray.getJSONObject(i).getString("service_img");
+                        String color= jsonArray.getJSONObject(i).getString("color");
+                            int countrate = jsonArray.getJSONObject(i).getInt("count_rate");
+                            servicesDetalis.add(new services(service_name, id_subservice, description, service_img, color, countrate));
+                    }
+                    }else{
+                        tx.setVisibility(View.VISIBLE);
+                        String message=jsonArray.getJSONObject(0).getString("message");
+                        tx.setText(message);
+                    }
+
+                    serviceArrayAdapter adapter = new serviceArrayAdapter(ServicesDetalisActivity.this,servicesDetalis);
+                    listView = findViewById(R.id.list_item);
+                    listView.setAdapter(adapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                        {
+//                                i2.putExtra("imageurl",imagesurl.get(position));
+//                                i2.putExtra("description",descriptions.get(position));
+//                                i2.putExtra("name",servicesname.get(position));
+                                i2.putExtra("id",servicesDetalis.get(position).ids);
+                                ServicesDetalisActivity.this.startActivity(i2);
+//                                finish();
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    Log.e("Exception", e.getMessage());
+                }
+
+            }
+        };
+
+        ServiceRequest2 serviceRequest2 = new ServiceRequest2(images.lang, i.getStringExtra("id"), listener);
+        RequestQueue queue = Volley.newRequestQueue(ServicesDetalisActivity.this);
+        queue.add(serviceRequest2);
+
+    }
+
+    public void backIcon(View view) {
+        onBackPressed();
     }
 
     public class ServiceRequest2 extends StringRequest {

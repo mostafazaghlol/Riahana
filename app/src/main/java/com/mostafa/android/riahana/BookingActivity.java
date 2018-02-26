@@ -45,6 +45,29 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     Button finish;
     String currentdatreString;
 
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable());
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +89,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         }
         setContentView(R.layout.activity_booking);
         final Intent i = getIntent();
-        finish = (Button) findViewById(R.id.finish);
+        finish = findViewById(R.id.finish);
         Calendar cal = Calendar.getInstance();
         millisecond = cal.get(Calendar.MILLISECOND);
         second = cal.get(Calendar.SECOND);
@@ -81,15 +104,16 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         dayofmonth = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
 
-        titelTextview = (TextView) findViewById(R.id.serviceType);
-        dateTextView = (TextView) findViewById(R.id.serviceType2);
-        ServiceType = (RelativeLayout) findViewById(R.id.serviceTypeImage);
+        titelTextview = findViewById(R.id.serviceType);
+        dateTextView = findViewById(R.id.serviceType2);
+        ServiceType = findViewById(R.id.serviceTypeImage);
         String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
+        currentdatreString = currentdatreString2;
         dateTextView.setText(currentdatreString2);
         final String id_client = sharedPreferences.getString("client_id", " ");
         final String x = i.getStringExtra("id");
         //hourOfDay =hourOfDay-12;
-        Time = (RelativeLayout) findViewById(R.id.Time);
+        Time = findViewById(R.id.Time);
         if (i.getStringExtra("Title") != "") {
             titelTextview.setText(i.getStringExtra("Title"));
         } else {
@@ -158,11 +182,17 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         c.set(Calendar.DAY_OF_MONTH, mDay);
         currentdatreString = mYear+"-"+(mMonth+1)+"-"+mDay;
         String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        Toast.makeText(this, " "+currentdatreString, Toast.LENGTH_SHORT).show();
         choosedYear = mYear;
         choosedDay = mDay;
         choosedMonth = mMonth;
-        dateTextView.setText(currentdatreString2);
+        if (choosedYear >= year && choosedMonth >= month && choosedDay >= dayofmonth) {
+            dateTextView.setText(currentdatreString2);
+        } else {
+            Toast.makeText(this, "" + getResources().getString(R.string.InvalidDate), Toast.LENGTH_SHORT).show();
+            getTime();
+        }
+
+
 
     }
 
@@ -193,30 +223,6 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     public void backicon(View view) {
         onBackPressed();
     }
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-//            view.setBackground(context.getResources().getDrawable());
-        }
-    }
-
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
 
     public void getTime() {
         datapicker = new datePickerFragment();

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,8 +34,9 @@ public class serviceArrayAdapter extends ArrayAdapter<services> {
         }
         //get object of the Array
         services getCurrentPlayer= getItem(position);
-        TextView textView = (TextView) listItemView.findViewById(R.id.bt1);
-        ImageView imageView = (ImageView) listItemView.findViewById(R.id.profile_image9);
+        TextView textView = listItemView.findViewById(R.id.bt1);
+        ImageView imageView = listItemView.findViewById(R.id.profile_image9);
+        RatingBar ratingBar = listItemView.findViewById(R.id.rating222);
         textView.setText(getCurrentPlayer.servicesname);
         switch (getCurrentPlayer.colors){
             case "#28792A":
@@ -56,6 +58,11 @@ public class serviceArrayAdapter extends ArrayAdapter<services> {
                 textView.setBackgroundResource(R.drawable.buttonorange);
         }
         Picasso.with(getContext()).load(getCurrentPlayer.imagesurl).into(imageView);
+        if (getCurrentPlayer.countrate > 0) {
+            ratingBar.setRating(getCurrentPlayer.countrate);
+        } else {
+            ratingBar.setRating(1);
+        }
         return listItemView;
     }
 }

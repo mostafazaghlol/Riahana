@@ -34,12 +34,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Services extends AppCompatActivity {
+    static String id_services;
     TextView textViewTitle, information1, information2;
     ImageView circleImage;
     Button btRate, btBooking;
-    String name,details,id_services;
+    String name, details;
     RelativeLayout relativeLayout;
     ProgressBar progressBar;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +71,13 @@ public class Services extends AppCompatActivity {
         try {
             setContentView(R.layout.activity_eyeleft);
             setStatusBarColored(this);
-            relativeLayout = (RelativeLayout)findViewById(R.id.idx);
-            progressBar = (ProgressBar)findViewById(R.id.progressser);
-            textViewTitle = (TextView) findViewById(R.id.servicesTitle);
-            circleImage = (ImageView) findViewById(R.id.servicesImage);
-            information1 = (TextView) findViewById(R.id.textInformation);
-            btRate = (Button) findViewById(R.id.RateBt);
-            btBooking = (Button) findViewById(R.id.BookingBt);
+            relativeLayout = findViewById(R.id.idx);
+            progressBar = findViewById(R.id.progressser);
+            textViewTitle = findViewById(R.id.servicesTitle);
+            circleImage = findViewById(R.id.servicesImage);
+            information1 = findViewById(R.id.textInformation);
+            btRate = findViewById(R.id.RateBt);
+            btBooking = findViewById(R.id.BookingBt);
             final Intent i = getIntent();
 //            final String name = i.getStringExtra("name");
             id_services=i.getStringExtra("id");
@@ -89,6 +113,7 @@ public class Services extends AppCompatActivity {
                 public void onClick(View view) {
                     CustomDialogClass cdd = new CustomDialogClass(Services.this);
                     cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                     cdd.show();
                 }
             });
@@ -111,29 +136,6 @@ public class Services extends AppCompatActivity {
 
     public void backIcon(View view) {
         onBackPressed();
-    }
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
-        }
-    }
-
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public class subservicesRequest extends StringRequest{

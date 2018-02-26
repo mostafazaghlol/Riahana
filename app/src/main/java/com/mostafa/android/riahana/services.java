@@ -6,11 +6,14 @@ package com.mostafa.android.riahana;
 
 public class services {
     String servicesname,ids,descriptions,imagesurl,colors;
-    public services(String Mservicesname,String Mids,String Mdescriptions,String Mimagesurl,String Mcolors){
+    int countrate;
+
+    public services(String Mservicesname, String Mids, String Mdescriptions, String Mimagesurl, String Mcolors, int countrate) {
         this.servicesname = Mservicesname;
         this.ids = Mids;
         this.descriptions = Mdescriptions;
         this.imagesurl = Mimagesurl;
         this.colors = Mcolors;
+        this.countrate = countrate;
     }
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,13 +20,27 @@
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
 
-        <TextView
-            android:id="@+id/bt1"
-            style="@style/TextView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/profile_image9"
-            android:background="@drawable/buttonorange"
-            android:text="@string/first_button" />
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/bt1"
+                style="@style/TextView"
+                android:background="@drawable/buttonorange"
+                android:text="@string/first_button" />
+
+            <RatingBar
+                android:id="@+id/rating222"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bt1"
+                android:layout_toRightOf="@id/profile_image9"
+                android:rating="0" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>
