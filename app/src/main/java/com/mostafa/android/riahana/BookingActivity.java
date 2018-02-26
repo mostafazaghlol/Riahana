@@ -43,6 +43,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     android.support.v4.app.DialogFragment datapicker;
     int choosedYear, choosedMonth, choosedDay;
     Button finish;
+    String currentdatreString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
             }
         } else {
             Intent i = new Intent(BookingActivity.this, Login.class);
+            images.activity=0;
             images.login = 2;
             BookingActivity.this.startActivity(i);
             finish();
@@ -142,7 +144,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
 
                     }
                 };
-                BookRequest bookRequest = new BookRequest(id_client, x, "10/0/0", images.lang, listener);
+                BookRequest bookRequest = new BookRequest(id_client, x, currentdatreString, images.lang, listener);
                 RequestQueue queue = Volley.newRequestQueue(BookingActivity.this);
                 queue.add(bookRequest);
             }
@@ -150,14 +152,14 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
 
     }
 
-
     @Override
     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, mYear);
         c.set(Calendar.MONTH, mMonth);
         c.set(Calendar.DAY_OF_MONTH, mDay);
-        String currentdatreString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        currentdatreString = mYear+"-"+mMonth+"-"+mDay;
+        Toast.makeText(this, " "+currentdatreString, Toast.LENGTH_SHORT).show();
         choosedYear = mYear;
         choosedDay = mDay;
         choosedMonth = mMonth;
@@ -176,9 +178,11 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
             mHourOfDay = mHourOfDay - 12;
             AM_PM = "PM";
         }
+//        currentdatreString = currentdatreString + "/n" +time;
         if (choosedYear >= year && choosedMonth >= month && choosedDay >= dayofmonth && mHour >= hourofday) {
+            String time ="At " + mHourOfDay + ":" + minute + " " + AM_PM;
+            TimeTextView.setText(time);
 
-            TimeTextView.setText("At " + mHourOfDay + ":" + minute + " " + AM_PM);
         } else {
             Toast.makeText(this, "" + getResources().getString(R.string.InvalidDate), Toast.LENGTH_SHORT).show();
             getTime();
@@ -216,8 +220,6 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
 
 
     public void getTime() {
-        TimePicker = new TimePickerFragment();
-        TimePicker.show(getSupportFragmentManager(), "time picker");
         datapicker = new datePickerFragment();
         datapicker.show(getSupportFragmentManager(), "date picker");
     }

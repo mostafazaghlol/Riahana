@@ -13,12 +13,16 @@
         <item
             android:id="@+id/profile"
             android:title="@string/item_profile" />
-        <item
-            android:id="@+id/book"
-            android:title="@string/item_book" />
+
         <item
             android:id="@+id/calculate"
             android:title="@string/item_calculate" />
+        <item
+            android:id="@+id/newcalculate"
+            android:title="@string/item_new_calculate" />
+        <item
+            android:id="@+id/oldcalculate"
+            android:title="@string/item_old_calculate" />
         <item
             android:id="@+id/newReservertion"
             android:title="@string/item_reservations" />

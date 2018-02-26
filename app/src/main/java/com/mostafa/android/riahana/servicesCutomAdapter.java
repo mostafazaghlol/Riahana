@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class servicesCutomAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<String> servicename,imagersUrl;
+    private ArrayList<String> servicename,imagersUrl,mcolors;
     public servicesCutomAdapter(Context x, ArrayList<String> servicesName){
         mContext = x;
         servicename =servicesName;
@@ -28,6 +28,12 @@ public class servicesCutomAdapter extends BaseAdapter {
         mContext = x;
         servicename =servicesName;
         imagersUrl=imageurl;
+    }
+    public servicesCutomAdapter(Context x, ArrayList<String> servicesName,ArrayList<String> imageurl,ArrayList<String> colors){
+        mContext = x;
+        servicename =servicesName;
+        imagersUrl=imageurl;
+        mcolors = colors;
     }
     @Override
     public int getCount() {
@@ -57,6 +63,25 @@ public class servicesCutomAdapter extends BaseAdapter {
                 TextView textView = (TextView) list.findViewById(R.id.bt1);
                 ImageView imageView = (ImageView) list.findViewById(R.id.profile_image9);
                 textView.setText(servicename.get(position));
+                switch (mcolors.get(position)){
+                    case "#28792A":
+                        textView.setBackgroundResource(R.drawable.buttongreen);
+                        break;
+                    case "#F5922A":
+                        textView.setBackgroundResource(R.drawable.buttonorange);
+                        break;
+                    case "#29A9CE":
+                        textView.setBackgroundResource(R.drawable.buttonblue);
+                        break;
+                    case "#F8E620":
+                        textView.setBackgroundResource(R.drawable.buttonyellow);
+                        break;
+                    case "EA83AE":
+                        textView.setBackgroundResource(R.drawable.buttonpink);
+                        break;
+                    default:
+                        textView.setBackgroundResource(R.drawable.buttonorange);
+                }
                 Picasso.with(mContext).load(imagersUrl.get(position)).into(imageView);
             } else {
                 list = (View) convertView;

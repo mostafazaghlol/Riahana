@@ -42,7 +42,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.personName.setText(persons.get(i).name);
         personViewHolder.personAge.setText(persons.get(i).age);
-//        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
+//        personViewHolder.personPhoto.setImageResource(calculates.get(i).photoId);
         Picasso.with(mContext).load(persons.get(i).photoId).into(personViewHolder.personPhoto);
     }
 

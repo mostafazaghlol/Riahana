@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity {
     Button loginbt;
     CheckBox checkBoxRemember;
     SharedPreferences.Editor editor;
+    static String id_client;
 
     //onCreate method
     @Override
@@ -76,11 +77,16 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loginbt.setBackgroundResource(R.drawable.buttongreen);
-                Toast.makeText(Login.this, "i clicked the button ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Login.this, "i clicked the button ", Toast.LENGTH_SHORT).show();
                 user = editTextuser.getText().toString().trim();
                 pass = editTextpass.getText().toString().trim();
                 if (checkBoxRemember.isChecked()) {
                     //sharedPreferences editor to save user and password.
+                    editor = sharedPreferences.edit();
+                    editor.putString("user", user);
+                    editor.putString("password", pass);
+                    editor.commit();
+                }else{
                     editor = sharedPreferences.edit();
                     editor.putString("user", user);
                     editor.putString("password", pass);
@@ -118,13 +124,18 @@ public class Login extends AppCompatActivity {
                         if (messsageid == 0) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                             builder.setMessage(message)
-                                    .setNegativeButton("موافق", null)
+                                    .setNegativeButton(getString(R.string.okay), null)
                                     .create()
                                     .show();
                         } else if (messsageid == 1) {
                             Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                             Intent Bookingintent = new Intent(Login.this, BookingActivity.class);
                             Intent Profile = new Intent(Login.this, profileActivity.class);
+                            Intent calculate= new Intent(Login.this, calculateActivity.class);
+                            Intent oldcalculate= new Intent(Login.this, oldcalculationActivity.class);
+                            Intent newcalculate= new Intent(Login.this, newcalculationActivity.class);
+                            Intent waitReservation= new Intent(Login.this, WaitedReservationsActivity.class);
+                            Intent comfirmedReservation= new Intent(Login.this, ComfirmedReservationsActivity.class);
                             Bookingintent.putExtra("Title", getResources().getString(R.string.eyeleftprocess));
                             editor.putInt("login",1);
                             JSONArray jsondataArray = jsonResponse.getJSONArray("data");
@@ -136,10 +147,20 @@ public class Login extends AppCompatActivity {
                             editor.putString("client_id",Client_id);
                             editor.putString("user_phone",user_phone);
                             editor.commit();
-                            if(images.login == 2) {
+                            if(images.activity == 0) {
                                 Login.this.startActivity(Bookingintent);
-                            }else if(images.login ==1){
+                            }else if(images.activity ==1){
                                 Login.this.startActivity(Profile);
+                            }else if(images.activity == 2){
+                                Login.this.startActivity(calculate);
+                            }else if(images.activity == 3){
+                                Login.this.startActivity(oldcalculate);
+                            }else if(images.activity == 4){
+                                Login.this.startActivity(newcalculate);
+                            }else if(images.activity == 5){
+                                Login.this.startActivity(waitReservation);
+                            }else if(images.activity == 6){
+                                Login.this.startActivity(comfirmedReservation);
                             }
                             finish();
                         }
@@ -180,5 +201,9 @@ public class Login extends AppCompatActivity {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void backIcon(View view) {
+        onBackPressed();
     }
 }

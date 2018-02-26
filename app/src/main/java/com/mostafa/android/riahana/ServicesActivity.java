@@ -52,7 +52,6 @@ public class ServicesActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         String serviceType = jsonArray.getJSONObject(i).getString("services_type");
                         String id = jsonArray.getJSONObject(i).getString("id_services");
-//                        Toast.makeText(ServicesActivity.this, "" + id, Toast.LENGTH_SHORT).show();
                         services_type.add(serviceType);
                         id_list.add(id);
                     }
@@ -65,10 +64,10 @@ public class ServicesActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
 //                            Toast.makeText(ServicesActivity.this, "You Clicked at " + id_list.get(+position), Toast.LENGTH_SHORT).show();
-                            i.putExtra("id",id_list.get(+position));
-                            i.putExtra("serviceName",services_type.get(+position));
+                            i.putExtra("id",id_list.get(position));
+                            i.putExtra("serviceName",services_type.get(position));
                             startActivity(i);
-                            finish();
+//                            finish();
 
                         }
                     });

@@ -5,12 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home"
-    tools:context="com.mostafa.android.riahana.ReservationsActivity">
+    tools:context="com.mostafa.android.riahana.WaitedReservationsActivity">
    <ProgressBar
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_centerInParent="true"
-       android:id="@+id/progress3"/>
+       android:id="@+id/progress4"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/txNo2"/>
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -20,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <ImageView
@@ -32,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/myreservation"
+            android:text="@string/mywaitedreservation"
             android:textStyle="bold"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/white" />
@@ -42,7 +47,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/rv"
+        android:id="@+id/rv2"
         />
    </LinearLayout>
 </RelativeLayout>

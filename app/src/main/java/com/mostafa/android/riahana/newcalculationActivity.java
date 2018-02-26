@@ -3,7 +3,6 @@ package com.mostafa.android.riahana;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -31,19 +30,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReservationsActivity extends AppCompatActivity {
+public class newcalculationActivity extends AppCompatActivity {
     RecyclerView rv;
-    private List<person> persons;
+    private List<calculatedate> calculates;
     private Context context;
     ProgressBar progressBar;
+    TextView txNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarColored(this);
-        setContentView(R.layout.activity_reservations);
+        setContentView(R.layout.activity_newcalculation);
         context = this;
-        persons = new ArrayList<>();
-        progressBar = (ProgressBar)findViewById(R.id.progress3);
+        calculates = new ArrayList<>();
+        txNo = (TextView)findViewById(R.id.txNonewcal);
+        progressBar = (ProgressBar)findViewById(R.id.progressnewcal);
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
         String id_client = sharedPreferences.getString("client_id"," ");
         Response.Listener<String> listener = new Response.Listener<String>() {
@@ -53,27 +55,32 @@ public class ReservationsActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.optJSONArray("data");
-                    for (int i=0;i<jsonArray.length();i++){
-                        String service_name=jsonArray.getJSONObject(i).getString("service_name");
-                        String date_time=jsonArray.getJSONObject(i).getString("date_time");
-                        String service_img=jsonArray.getJSONObject(i).getString("service_img");
-                        persons.add(new person(service_name,date_time,service_img));
+                    if(jsonArray.getJSONObject(0).has("cost")) {
+                        for (int i=0;i<jsonArray.length();i++){
+                            String cost = jsonArray.getJSONObject(i).getString("cost");
+                            String calculation_id = jsonArray.getJSONObject(i).getString("calculation_id");
+                            String image_calculation = jsonArray.getJSONObject(i).getString("image_calculation");
+                            calculates.add(new calculatedate(cost, calculation_id, image_calculation));
+                        }
+                        rv = (RecyclerView)findViewById(R.id.rvnewcal);
+                        LinearLayoutManager llm = new LinearLayoutManager(newcalculationActivity.this);
+                        rv.setLayoutManager(llm);
+                        RVAdapternewcal adapter = new RVAdapternewcal(calculates,context);
+                        rv.setAdapter(adapter);
+                    }else{
+//                         Toast.makeText(context, " "+, Toast.LENGTH_SHORT).show();
+                        txNo.setVisibility(View.VISIBLE);
+                        txNo.setText(jsonArray.getJSONObject(0).getString("message"));
                     }
-                    rv = (RecyclerView)findViewById(R.id.rv);
-                    LinearLayoutManager llm = new LinearLayoutManager(ReservationsActivity.this);
-                    rv.setLayoutManager(llm);
-                    RVAdapter adapter = new RVAdapter(persons,context);
-                    rv.setAdapter(adapter);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
 
-        newReservartion newReservartion = new newReservartion(id_client,images.lang, listener);
-        RequestQueue queue = Volley.newRequestQueue(ReservationsActivity.this);
-        queue.add(newReservartion);
+        newcalculationsRequest newcalculations = new newcalculationsRequest(id_client,images.lang, listener);
+        RequestQueue queue = Volley.newRequestQueue(newcalculationActivity.this);
+        queue.add(newcalculations);
 
 
     }
@@ -106,11 +113,11 @@ public class ReservationsActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public class newReservartion extends StringRequest{
-        private final static String url="http://raihana-eg.com/site_api/api/mynewbooking_api";
+    public class newcalculationsRequest extends StringRequest {
+        private final static String url="http://raihana-eg.com/site_api/api/mynewcalculation_api";
         private Map<String,String> params;
 
-        public newReservartion(String id_client, String lang, Response.Listener<String> listener){
+        public newcalculationsRequest(String id_client, String lang, Response.Listener<String> listener){
             super(Method.POST,url,listener,null);
             params = new HashMap<>();
             params.put("id_client",id_client);

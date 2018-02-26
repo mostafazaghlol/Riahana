@@ -35,7 +35,7 @@
     <string name="item_profile">الملف الشخصي</string>
     <string name="item_book">الحجز</string>
     <string name="item_calculate">حساب التكلفة</string>
-    <string name="item_reservations">حجوزات</string>
+    <string name="item_reservations">الحجوزات المأكده</string>
     <string name="item_coupon">كوبون</string>
     <string name="item_offers">عروض</string>
     <string name="item_LOGOUT">الخروج</string>
@@ -54,7 +54,7 @@
     <string name="Offers">عروض</string>
     <string name="fackoffer">50% على عملية رفع العين</string>
     <string name="FakeDate">داتا للعرض</string>
-    <string name="myreservation">حجوزاتى</string>
+    <string name="myreservation">" حجوزاتى المأكده"</string>
     <string name="send">ارسل</string>
     <string name="Description">وصف</string>
     <string name="DescriptionYourAge">صف عمرك وبعض المعلومات عن وضعك</string>
@@ -80,4 +80,22 @@
     <string name="TimeandDate">الوقت والتاريخ</string>
     <string name="item_contact">اتصل بنا</string>
     <string name="item_about">عن التطبيق</string>
+    <string name="myComfirmedreservation">الحجوزات المأكده</string>
+    <string name="mywaitedreservation">الحجوزات الغير مأكده</string>
+    <string name="item_reservations2">الحجوزات الغير مأكده</string>
+    <string name="choosePic">إلتقاط صورة</string>
+    <string name="picfromstudio">صورة من الإستديو</string>
+    <string name="cancel">إلغاء</string>
+    <string name="chossePicture">طريقة إضافة الصورة !</string>
+    <string name="item_old_calculate">الحسابات المأكده</string>
+    <string name="item_new_calculate">الحسابات المنتظره</string>
+    <string name="okay">موافق</string>
+    <string name="mustlog">يجب تسجيل الدخول !</string>
+    <string name="writedescription">قم بكتابة الوصف</string>
+    <string name="choosePicture">قم بإختيار صورة</string>
+    <string name="calculatecost">جاري عمل حساب التكلفة</string>
+    <string name="pleasewait">"من فضلك انتظر قليلا ..... "</string>
+    <string name="pick">التقط</string>
+    <string name="nocoupun">لا يوجد كوبنات</string>
+
 </resources>

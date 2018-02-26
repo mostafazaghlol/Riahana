@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/layer1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/layer1"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
@@ -25,6 +25,9 @@
         </activity>
         <activity
             android:name=".Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ComfirmedReservationsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Signup"
@@ -53,7 +56,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ReservationsActivity"
+            android:name=".WaitedReservationsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".couponActivity"
@@ -66,9 +69,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Contact_us"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity android:name=".ServicesActivity" />
-        <activity android:name=".ServicesDetalisActivity"></activity>
+        <activity android:name=".ServicesDetalisActivity" />
+        <activity android:name=".oldcalculationActivity" />
+        <activity android:name=".newcalculationActivity"></activity>
     </application>
 
 </manifest>

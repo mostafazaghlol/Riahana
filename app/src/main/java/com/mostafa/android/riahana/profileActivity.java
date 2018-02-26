@@ -36,9 +36,6 @@ public class profileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setStatusBarColored(this);
-
-
-
         etName = (EditText)findViewById(R.id.name);
         etPhone = (EditText)findViewById(R.id.phone);
         etEmail = (EditText)findViewById(R.id.emailaddress);

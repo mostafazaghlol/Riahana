@@ -1,5 +1,6 @@
 package com.mostafa.android.riahana;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 
 /**
@@ -12,6 +13,9 @@ public class images {
     static int y=0;
     static int login=0;
     static String lang="1";
+    static short activity=0;
+
+
 
     public static Uri getImageUri() {
         return imageUri;

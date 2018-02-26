@@ -9,39 +9,54 @@
 
 
     <LinearLayout
+        android:id="@+id/id1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/id1"
+        android:layout_alignParentTop="true"
+
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true">
+        android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:onClick="backIcon"
-                android:src="@drawable/arrow" />
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="backIcon"
+            android:src="@drawable/arrow" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/item_servecies"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_servecies"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:id="@+id/idx"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/id1"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/servicesImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/face"
-            android:layout_below="@id/id1"
-            android:layout_centerHorizontal="true"
             app:civ_border_color="@color/white"
             app:civ_border_width="2dp" />
 
@@ -49,26 +64,32 @@
             android:id="@+id/servicesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_below="@id/servicesImage"
             android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:layout_marginTop="5dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textStyle="bold"
             android:text="PlaceHolder"
             android:textColor="@color/white" />
 
 
         <LinearLayout
+            android:id="@+id/idf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/servicesTitle"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_below="@id/servicesTitle"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/introduction"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -77,23 +98,29 @@
                 android:layout_height="1dp"
                 android:background="#ffffff" />
 
-            <TextView
-                android:id="@+id/textInformation"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PlaceHolder"
-                android:textColor="@color/white" />
+                android:layout_height="200dp">
 
+                <TextView
+                    android:id="@+id/textInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PlaceHolder"
+                    android:gravity="center"
+                    android:textColor="@color/white" />
+            </ScrollView>
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/idb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
@@ -112,6 +139,5 @@
                 android:background="@drawable/buttonpink"
                 android:text="@string/item_book" />
         </LinearLayout>
-
-
+    </RelativeLayout>
 </RelativeLayout>

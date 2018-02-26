@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -85,18 +86,18 @@ public class NavigationHome extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(NavigationHome.this);
-                builder.setTitle(getResources().getString(R.string.quit));
-                builder.setMessage(getResources().getString(R.string.quitQuestion));
-                builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                builder.setNegativeButton(getResources().getString(R.string.no), null);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(NavigationHome.this);
+            builder.setTitle(getResources().getString(R.string.quit));
+            builder.setMessage(getResources().getString(R.string.quitQuestion));
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.no), null);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
 
         }
     }
@@ -133,7 +134,7 @@ public class NavigationHome extends AppCompatActivity
                 if (fragment != null) {
 //                    scrollView.setVisibility(View.VISIBLE);
 //                    discardChanges();
-                      fragment = new HomeFragment();
+                    fragment = new HomeFragment();
 
 //                    fragment = null;
                 }
@@ -152,24 +153,74 @@ public class NavigationHome extends AppCompatActivity
                     startActivity(profileIntent);
 //                    Toast.makeText(this, "fname is "+sharedPreferences.getString("fname"," "), Toast.LENGTH_SHORT).show();
                 } else {
+                    Toast.makeText(this, "" + getString(R.string.mustlog), Toast.LENGTH_SHORT).show();
                     Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 1;
                     images.login = 1;
                     startActivity(loginIntent);
                 }
                 break;
-            case R.id.book:
-                Intent ServicesActivity2 = new Intent(this, com.mostafa.android.riahana.ServicesActivity.class);
-                NavigationHome.this.startActivity(ServicesActivity2);
-                break;
+//            case R.id.book:
+//                Intent ServicesActivity2 = new Intent(this, com.mostafa.android.riahana.ServicesActivity.class);
+//                NavigationHome.this.startActivity(ServicesActivity2);
+//                break;
             case R.id.calculate:
-                Intent CalIntent = new Intent(this, calculateActivity.class);
-                CalIntent.putExtra("Title", getResources().getString(R.string.eyeleftprocess));
-                startActivity(CalIntent);
+                if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+                    Intent CalIntent = new Intent(this, calculateActivity.class);
+                    startActivity(CalIntent);
+                } else {
+                    Toast.makeText(this, "" + getString(R.string.mustlog), Toast.LENGTH_SHORT).show();
+                    Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 2;
+                    images.login = 1;
+                    startActivity(loginIntent);
+                }
+                break;
+            case R.id.oldcalculate:
+                if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+                    Intent CalIntentold = new Intent(this, oldcalculationActivity.class);
+                    startActivity(CalIntentold);
+                } else {
+                    Toast.makeText(this, "" + getString(R.string.mustlog), Toast.LENGTH_SHORT).show();
+                    Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 3;
+                    images.login = 1;
+                    startActivity(loginIntent);
+                }
+                break;
+            case R.id.newcalculate:
+                if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+                    Intent CalIntentnew = new Intent(this, newcalculationActivity.class);
+                    startActivity(CalIntentnew);
+                } else {
+                    Toast.makeText(this, "" + getString(R.string.mustlog), Toast.LENGTH_SHORT).show();
+                    Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 4;
+                    images.login = 1;
+                    startActivity(loginIntent);
+                }
                 break;
             case R.id.newReservertion:
-                Intent ResIntent = new Intent(this, ReservationsActivity.class);
-//                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
-                startActivity(ResIntent);
+                if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+                    Intent ResIntent2 = new Intent(this, ComfirmedReservationsActivity.class);
+                    startActivity(ResIntent2);
+                } else {
+                    Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 5;
+                    images.login = 1;
+                    startActivity(loginIntent);
+                }
+                break;
+            case R.id.oldReservertion:
+                if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
+                    Intent ResIntent = new Intent(this, WaitedReservationsActivity.class);
+                    startActivity(ResIntent);
+                } else {
+                    Toast.makeText(this, "" + getString(R.string.mustlog), Toast.LENGTH_SHORT).show();
+                    Intent loginIntent = new Intent(this, Login.class);
+                    images.activity = 6;
+                    startActivity(loginIntent);
+                }
                 break;
             case R.id.coupon:
                 Intent couponIntent = new Intent(this, couponActivity.class);
@@ -180,6 +231,10 @@ public class NavigationHome extends AppCompatActivity
                 Intent offerIntent = new Intent(this, offersActivity.class);
 //                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
                 startActivity(offerIntent);
+                break;
+            case R.id.contact:
+                Intent contact = new Intent(this, Contact_us.class);
+                startActivity(contact);
                 break;
             case R.id.Aboutapi:
                 Intent aboutIntent = new Intent(this, About_us.class);
@@ -246,7 +301,7 @@ public class NavigationHome extends AppCompatActivity
             view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             view.getLayoutParams().height = statusBarHeight;
             ((ViewGroup) w.getDecorView()).addView(view);
-//            view.setBackground(context.getResources().getDrawable());
+            view.setBackgroundColor(context.getResources().getColor(R.color.green));
         }
     }
 
