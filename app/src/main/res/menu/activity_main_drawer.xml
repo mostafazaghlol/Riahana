@@ -33,9 +33,6 @@
             android:id="@+id/coupon"
             android:title="@string/item_coupon" />
         <item
-            android:id="@+id/offers"
-            android:title="@string/item_offers" />
-        <item
             android:id="@+id/contact"
             android:title="@string/item_contact" />
         <item

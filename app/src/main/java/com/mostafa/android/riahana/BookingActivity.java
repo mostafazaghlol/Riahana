@@ -84,10 +84,8 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         titelTextview = (TextView) findViewById(R.id.serviceType);
         dateTextView = (TextView) findViewById(R.id.serviceType2);
         ServiceType = (RelativeLayout) findViewById(R.id.serviceTypeImage);
-        TimeTextView = (TextView) findViewById(R.id.serviceType22);
         String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(cal.getTime());
         dateTextView.setText(currentdatreString2);
-        TimeTextView.setText("At " + hourofday + ":" + minute);
         final String id_client = sharedPreferences.getString("client_id", " ");
         final String x = i.getStringExtra("id");
         //hourOfDay =hourOfDay-12;
@@ -158,12 +156,13 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         c.set(Calendar.YEAR, mYear);
         c.set(Calendar.MONTH, mMonth);
         c.set(Calendar.DAY_OF_MONTH, mDay);
-        currentdatreString = mYear+"-"+mMonth+"-"+mDay;
+        currentdatreString = mYear+"-"+(mMonth+1)+"-"+mDay;
+        String currentdatreString2 = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         Toast.makeText(this, " "+currentdatreString, Toast.LENGTH_SHORT).show();
         choosedYear = mYear;
         choosedDay = mDay;
         choosedMonth = mMonth;
-        dateTextView.setText(currentdatreString);
+        dateTextView.setText(currentdatreString2);
 
     }
 

@@ -38,23 +38,27 @@ import java.util.Map;
 
 public class HomeFragment extends Fragment {
     View MyView;
-    ArrayList<String> servicesname, ids, descriptions, imagesurl,colors;
+    ArrayList<services> servicesDetalis;
     ListView listView;
     TextView textview;
     ProgressBar progressBar;
-//    LinearLayout EyeLeftImage,RhinoplastyImage,InjectionImage,EmbellrskImage;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final Intent i2 = new Intent(getActivity(),ServicesDetalisActivity.class);
 
         MyView = inflater.inflate(R.layout.home_fragment, container, false);
+        return MyView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final Intent i2 = new Intent(getActivity(),ServicesDetalisActivity.class);
         progressBar = (ProgressBar) MyView.findViewById(R.id.progress10);
-        servicesname = new ArrayList<String>();
-        ids = new ArrayList<String>();
-        descriptions = new ArrayList<String>();
-        imagesurl = new ArrayList<String>();
-        colors = new ArrayList<String>();
+        servicesDetalis = new ArrayList<>();
+        final Intent i22 = new Intent(getActivity(), Services.class);
+
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -68,23 +72,17 @@ public class HomeFragment extends Fragment {
                         String description = jsonArray.getJSONObject(i).getString("description");
                         String service_img = jsonArray.getJSONObject(i).getString("service_img");
                         String Color = jsonArray.getJSONObject(i).getString("color");
-                        servicesname.add(service_name);
-                        ids.add(id_subservice);
-//                        Toast.makeText(ServicesDetalisActivity.this, " "+ids, Toast.LENGTH_SHORT).show();
-                        descriptions.add(description);
-                        imagesurl.add(service_img);
-                        colors.add(Color);
-
+                        servicesDetalis.add(new services(service_name,id_subservice,description,service_img,Color));
                     }
-                    servicesCutomAdapter adapter = new servicesCutomAdapter(getActivity(), servicesname, imagesurl,colors);
+                    serviceArrayAdapter adapter = new serviceArrayAdapter(getActivity(),servicesDetalis);
                     listView = (ListView)MyView.findViewById(R.id.list_item2);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            i2.putExtra("serviceName",servicesname.get(i));
-                            i2.putExtra("id",ids.get(i));
-                            startActivity(i2);
+                            i22.putExtra("serviceName",servicesDetalis.get(i).servicesname);
+                            i22.putExtra("id",servicesDetalis.get(i).ids);
+                            startActivity(i22);
                         }
                     });
 
@@ -98,13 +96,6 @@ public class HomeFragment extends Fragment {
         HomeRequest2 homeRequest2 = new HomeRequest2(images.lang, listener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(homeRequest2);
-
-        return MyView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     public static void setStatusBarColored(Activity context) {

@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServicesDetalisActivity extends AppCompatActivity {
-    ArrayList<String> servicesname, ids, descriptions, imagesurl,mcolors;
+    ArrayList<services> servicesDetalis;
     ListView listView;
     TextView textview,tx;
     ProgressBar progressBar;
@@ -41,11 +41,7 @@ public class ServicesDetalisActivity extends AppCompatActivity {
         setStatusBarColored(this);
         setContentView(R.layout.activity_services_detalis);
         progressBar = (ProgressBar) findViewById(R.id.progress);
-        servicesname = new ArrayList<String>();
-        ids = new ArrayList<String>();
-        descriptions = new ArrayList<String>();
-        imagesurl = new ArrayList<String>();
-        mcolors = new ArrayList<String>();
+        servicesDetalis = new ArrayList<services>();
         textview = (TextView) findViewById(R.id.textServices);
         tx = (TextView)findViewById(R.id.txnoser);
         Intent i = getIntent();
@@ -66,13 +62,7 @@ public class ServicesDetalisActivity extends AppCompatActivity {
                         String description = jsonArray.getJSONObject(i).getString("description");
                         String service_img = jsonArray.getJSONObject(i).getString("service_img");
                         String color= jsonArray.getJSONObject(i).getString("color");
-                        servicesname.add(service_name);
-                        ids.add(id_subservice);
-//                        Toast.makeText(ServicesDetalisActivity.this, " "+ids, Toast.LENGTH_SHORT).show();
-                        descriptions.add(description);
-                        imagesurl.add(service_img);
-                        mcolors.add(color);
-
+                        servicesDetalis.add(new services(service_name,id_subservice,description,service_img,color));
                     }
                     }else{
                         tx.setVisibility(View.VISIBLE);
@@ -80,7 +70,7 @@ public class ServicesDetalisActivity extends AppCompatActivity {
                         tx.setText(message);
                     }
 
-                    servicesCutomAdapter adapter = new servicesCutomAdapter(ServicesDetalisActivity.this, servicesname, imagesurl,mcolors);
+                    serviceArrayAdapter adapter = new serviceArrayAdapter(ServicesDetalisActivity.this,servicesDetalis);
                     listView = (ListView) findViewById(R.id.list_item);
                     listView.setAdapter(adapter);
 
@@ -92,7 +82,7 @@ public class ServicesDetalisActivity extends AppCompatActivity {
 //                                i2.putExtra("imageurl",imagesurl.get(position));
 //                                i2.putExtra("description",descriptions.get(position));
 //                                i2.putExtra("name",servicesname.get(position));
-                                i2.putExtra("id",ids.get(position));
+                                i2.putExtra("id",servicesDetalis.get(position).ids);
                                 ServicesDetalisActivity.this.startActivity(i2);
 //                                finish();
 

@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/layer1"
+        android:icon="@mipmap/ic_launcherx"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/layer1"
+        android:roundIcon="@mipmap/ic_launcherx"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
@@ -71,10 +71,14 @@
             android:name=".Contact_us"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".ServicesActivity" />
-        <activity android:name=".ServicesDetalisActivity" />
-        <activity android:name=".oldcalculationActivity" />
-        <activity android:name=".newcalculationActivity"></activity>
+        <activity android:name=".ServicesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ServicesDetalisActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".oldcalculationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".newcalculationActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

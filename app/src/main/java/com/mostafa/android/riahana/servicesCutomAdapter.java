@@ -19,25 +19,15 @@ import java.util.ArrayList;
 
 public class servicesCutomAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<String> servicename,imagersUrl,mcolors;
-    public servicesCutomAdapter(Context x, ArrayList<String> servicesName){
+    private ArrayList<services> servicesDetalis;
+    public servicesCutomAdapter(Context x, ArrayList<services> servicesName){
         mContext = x;
-        servicename =servicesName;
+        servicesDetalis =servicesName;
     }
-    public servicesCutomAdapter(Context x, ArrayList<String> servicesName,ArrayList<String> imageurl){
-        mContext = x;
-        servicename =servicesName;
-        imagersUrl=imageurl;
-    }
-    public servicesCutomAdapter(Context x, ArrayList<String> servicesName,ArrayList<String> imageurl,ArrayList<String> colors){
-        mContext = x;
-        servicename =servicesName;
-        imagersUrl=imageurl;
-        mcolors = colors;
-    }
+
     @Override
     public int getCount() {
-        return servicename.size();
+        return servicesDetalis.size();
     }
 
     @Override
@@ -62,8 +52,8 @@ public class servicesCutomAdapter extends BaseAdapter {
                 list = inflater.inflate(R.layout.custom_list, null);
                 TextView textView = (TextView) list.findViewById(R.id.bt1);
                 ImageView imageView = (ImageView) list.findViewById(R.id.profile_image9);
-                textView.setText(servicename.get(position));
-                switch (mcolors.get(position)){
+                textView.setText(servicesDetalis.get(position).servicesname);
+                switch (servicesDetalis.get(position).colors){
                     case "#28792A":
                         textView.setBackgroundResource(R.drawable.buttongreen);
                         break;
@@ -82,7 +72,7 @@ public class servicesCutomAdapter extends BaseAdapter {
                     default:
                         textView.setBackgroundResource(R.drawable.buttonorange);
                 }
-                Picasso.with(mContext).load(imagersUrl.get(position)).into(imageView);
+                Picasso.with(mContext).load(servicesDetalis.get(position).imagesurl).into(imageView);
             } else {
                 list = (View) convertView;
             }

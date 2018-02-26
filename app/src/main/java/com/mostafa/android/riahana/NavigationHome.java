@@ -227,11 +227,6 @@ public class NavigationHome extends AppCompatActivity
 //                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
                 startActivity(couponIntent);
                 break;
-            case R.id.offers:
-                Intent offerIntent = new Intent(this, offersActivity.class);
-//                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
-                startActivity(offerIntent);
-                break;
             case R.id.contact:
                 Intent contact = new Intent(this, Contact_us.class);
                 startActivity(contact);
