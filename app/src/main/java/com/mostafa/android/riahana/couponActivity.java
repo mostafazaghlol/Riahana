@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +20,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,21 +38,53 @@ public class couponActivity extends AppCompatActivity {
     TextView txCoupondata;
     TextView imCoupon;
     RecyclerView rv;
-    private List<coupon> coupons;
-    private Context context;
     ProgressBar progressBar;
     TextView txNo;
+    AdView mAdView;
+    InterstitialAd mInterstitialAd;
+    private List<coupon> coupons;
+    private Context context;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable());
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarColored(this);
         setContentView(R.layout.activity_coupon);
-        txCoupondata = (TextView)findViewById(R.id.coupondata);
-        imCoupon = (TextView) findViewById(R.id.facecoupon);
+        txCoupondata = findViewById(R.id.coupondata);
+        imCoupon = findViewById(R.id.facecoupon);
         context = this;
+        mAdView = findViewById(R.id.adViewcoupon);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.intercoupon));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         coupons = new ArrayList<>();
-        txNo = (TextView)findViewById(R.id.txNo3);
-        progressBar = (ProgressBar)findViewById(R.id.progress20);
+        txNo = findViewById(R.id.txNo3);
+        progressBar = findViewById(R.id.progress20);
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
         final String id_client = sharedPreferences.getString("client_id"," ");
         Response.Listener<String> listener = new Response.Listener<String>() {
@@ -70,7 +103,7 @@ public class couponActivity extends AppCompatActivity {
                         txNo.setVisibility(View.VISIBLE);
                         txNo.setText(getString(R.string.nocoupun));
                     }
-                    rv = (RecyclerView)findViewById(R.id.rvCoupon);
+                    rv = findViewById(R.id.rvCoupon);
                     LinearLayoutManager llm = new LinearLayoutManager(couponActivity.this);
                     rv.setLayoutManager(llm);
                     RVAdaptercopuon adapter = new RVAdaptercopuon(coupons,context);
@@ -86,32 +119,6 @@ public class couponActivity extends AppCompatActivity {
         queue.add(couponRequest);
 
 
-    }
-
-
-
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-//            view.setBackground(context.getResources().getDrawable());
-        }
-    }
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public void backIcon(View view) {

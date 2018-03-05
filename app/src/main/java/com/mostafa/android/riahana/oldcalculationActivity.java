@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,6 +21,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,10 +35,34 @@ import java.util.Map;
 
 public class oldcalculationActivity extends AppCompatActivity {
     RecyclerView rv;
-    private List<calculatedate> calculates;
-    private Context context;
     ProgressBar progressBar;
     TextView txNo;
+    AdView mAdView;
+    private List<calculatedate> calculates;
+    private Context context;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable());
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +70,13 @@ public class oldcalculationActivity extends AppCompatActivity {
         setStatusBarColored(this);
         setContentView(R.layout.activity_oldcalculation);
         context = this;
+        mAdView = findViewById(R.id.adViewcalculatenew);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         calculates = new ArrayList<>();
-        txNo = (TextView)findViewById(R.id.txNo3);
-        rv = (RecyclerView)findViewById(R.id.rv4);
-        progressBar = (ProgressBar)findViewById(R.id.progressoldcal);
+        txNo = findViewById(R.id.txNo3);
+        rv = findViewById(R.id.rv4);
+        progressBar = findViewById(R.id.progressoldcal);
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
         final String id_client = sharedPreferences.getString("client_id"," ");
         Response.Listener<String> listener = new Response.Listener<String>() {
@@ -83,28 +112,7 @@ public class oldcalculationActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(oldcalculationActivity.this);
         queue.add(oldcalculations);
     }
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
 
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-//            view.setBackground(context.getResources().getDrawable());
-        }
-    }
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
     public void backicon(View view) {
         onBackPressed();
     }

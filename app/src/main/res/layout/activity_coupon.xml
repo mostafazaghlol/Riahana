@@ -7,12 +7,12 @@
     android:background="@drawable/home"
     tools:context="com.mostafa.android.riahana.couponActivity">
 <LinearLayout
+    android:id="@+id/coupon1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_marginLeft="30dp"
     android:layout_marginTop="20dp"
-    android:id="@+id/coupon1">
+    android:orientation="vertical">
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -30,23 +30,35 @@
 </LinearLayout>
 
     <TextView
+        android:id="@+id/txNo3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/txNo3"
         android:visibility="invisible"/>
     <ProgressBar
+        android:id="@+id/progress20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progress20"
         android:layout_centerInParent="true"/>
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCoupon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/coupon1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/rvCoupon"
-        android:layout_below="@id/coupon1"
         />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewcoupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="@string/bannercoupon" />
 </RelativeLayout>

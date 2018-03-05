@@ -27,6 +27,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.Locale;
 
 public class NavigationHome extends AppCompatActivity
@@ -35,9 +39,33 @@ public class NavigationHome extends AppCompatActivity
     ScrollView scrollView;
     TextView textViewTitle;
     LinearLayout linearLayout;
-
-    private Locale myLocale;
     SharedPreferences sharedPreferences;
+    InterstitialAd mInterstitialAd;
+    android.support.v4.app.Fragment fragment = null;
+    private Locale myLocale;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+            view.setBackgroundColor(context.getResources().getColor(R.color.green));
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +73,12 @@ public class NavigationHome extends AppCompatActivity
         try {
             setStatusBarColored(this);
             setContentView(R.layout.activity_main);
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(getString(R.string.interNavi));
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
             sharedPreferences = getSharedPreferences("pref", 0);
-            imageViewarabic = (ImageView) findViewById(R.id.language);
-            imageViewenglish = (ImageView) findViewById(R.id.language2);
+            imageViewarabic = findViewById(R.id.language);
+            imageViewenglish = findViewById(R.id.language2);
             if (images.lang == "2") {
                 imageViewarabic.setVisibility(View.INVISIBLE);
                 imageViewenglish.setVisibility(View.VISIBLE);
@@ -55,23 +86,23 @@ public class NavigationHome extends AppCompatActivity
                 imageViewenglish.setVisibility(View.INVISIBLE);
                 imageViewarabic.setVisibility(View.VISIBLE);
             }
-            scrollView = (ScrollView) findViewById(R.id.scrollView);
-            linearLayout = (LinearLayout) findViewById(R.id.content);
-            textViewTitle = (TextView) findViewById(R.id.title);
-            navi = (ImageView) findViewById(R.id.navi);
+            scrollView = findViewById(R.id.scrollView);
+            linearLayout = findViewById(R.id.content);
+            textViewTitle = findViewById(R.id.title);
+            navi = findViewById(R.id.navi);
             fragment = new HomeFragment();
             android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
 
-            final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            final DrawerLayout drawer = findViewById(R.id.drawer_layout);
             navi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     drawer.openDrawer(Gravity.LEFT);
                 }
             });
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            NavigationView navigationView = findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
         } catch (InflateException E) {
             Log.e("The error is ", " " + E.getMessage());
@@ -81,7 +112,7 @@ public class NavigationHome extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -101,7 +132,6 @@ public class NavigationHome extends AppCompatActivity
 
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +155,11 @@ public class NavigationHome extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    android.support.v4.app.Fragment fragment = null;
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
 
     public void displaySelectedScreen(int id) {
 
@@ -140,10 +174,20 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.servecies:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 Intent ServicesActivity = new Intent(this, com.mostafa.android.riahana.ServicesActivity.class);
                 NavigationHome.this.startActivity(ServicesActivity);
                 break;
             case R.id.profile:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent profileIntent = new Intent(this, profileActivity.class);
                     profileIntent.putExtra("name", sharedPreferences.getString("fname", " "));
@@ -165,6 +209,11 @@ public class NavigationHome extends AppCompatActivity
 //                NavigationHome.this.startActivity(ServicesActivity2);
 //                break;
             case R.id.calculate:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent CalIntent = new Intent(this, calculateActivity.class);
                     startActivity(CalIntent);
@@ -177,6 +226,11 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.oldcalculate:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent CalIntentold = new Intent(this, oldcalculationActivity.class);
                     startActivity(CalIntentold);
@@ -189,6 +243,11 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.newcalculate:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent CalIntentnew = new Intent(this, newcalculationActivity.class);
                     startActivity(CalIntentnew);
@@ -201,6 +260,11 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.newReservertion:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent ResIntent2 = new Intent(this, ComfirmedReservationsActivity.class);
                     startActivity(ResIntent2);
@@ -212,6 +276,11 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.oldReservertion:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 if (sharedPreferences.contains("user") && sharedPreferences.getInt("login", 0) == 1) {
                     Intent ResIntent = new Intent(this, WaitedReservationsActivity.class);
                     startActivity(ResIntent);
@@ -223,18 +292,38 @@ public class NavigationHome extends AppCompatActivity
                 }
                 break;
             case R.id.coupon:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 Intent couponIntent = new Intent(this, couponActivity.class);
 //                ResIntent.putExtra("Title",getResources().getString(R.string.eyeleftprocess));
                 startActivity(couponIntent);
                 break;
             case R.id.contact:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 Intent contact = new Intent(this, Contact_us.class);
                 startActivity(contact);
                 break;
             case R.id.Aboutapi:
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 Intent aboutIntent = new Intent(this, About_us.class);
                 startActivity(aboutIntent);
                 break;
+            case R.id.hamada:
+                Intent CalIntentAb = new Intent(this, AboutDevelopersActivity.class);
+                startActivity(CalIntentAb);
+                break;
+
             case R.id.logout:
                 AlertDialog.Builder builder = new AlertDialog.Builder(NavigationHome.this);
                 builder.setTitle(getResources().getString(R.string.goout));
@@ -284,29 +373,6 @@ public class NavigationHome extends AppCompatActivity
         navi.setImageDrawable(getResources().getDrawable(R.drawable.navi));
         linearLayout.setBackground(getResources().getDrawable(R.drawable.homebackgroung));
 
-    }
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-            view.setBackgroundColor(context.getResources().getColor(R.color.green));
-        }
-    }
-
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public void changeLang(String lang) {

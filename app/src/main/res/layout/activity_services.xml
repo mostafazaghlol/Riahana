@@ -5,50 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/servicebackground"
+    android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:orientation="vertical"
     tools:context="com.mostafa.android.riahana.ServicesActivity">
 
     <ProgressBar
+        android:id="@+id/progress2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progress2"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/arrow"
-            android:onClick="backicon"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_servecies"
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-    <GridView
-        android:numColumns="2"
-        android:gravity="center"
-        android:columnWidth="100dp"
-        android:stretchMode="columnWidth"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/grid" />
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:onClick="backicon"
+                android:src="@drawable/arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_servecies"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/grid"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:columnWidth="100dp"
+                android:gravity="center"
+                android:numColumns="2"
+                android:stretchMode="columnWidth" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom|center"
+                android:layout_marginTop="20dp"
+                android:foregroundGravity="bottom"
+                app:adSize="BANNER"
+                app:adUnitId="@string/bannerServices" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -1,13 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/oneservices"
     android:fillViewport="true"
+    android:orientation="vertical"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:paddingTop="20dp"
-    android:background="@drawable/oneservices"
     tools:context="com.mostafa.android.riahana.profileActivity">
 
 <LinearLayout
@@ -27,19 +28,19 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="@string/item_profile"
-            android:textStyle="bold"
             android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/white"
-            android:textAppearance="?android:textAppearanceLarge" />
+            android:textStyle="bold" />
 
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
-            android:id="@+id/name"
             android:hint="@string/Fullname"
             android:inputType="text"
             android:shadowColor="@color/white"
@@ -47,36 +48,36 @@
             android:textColorHint="@color/white" />
 
         <EditText
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
             android:hint="@string/Phone"
-            android:id="@+id/phone"
             android:inputType="number"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
         <EditText
+            android:id="@+id/emailaddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
             android:hint="@string/email"
             android:inputType="text"
-            android:id="@+id/emailaddress"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
         <EditText
+            android:id="@+id/passwordpro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             android:hint="@string/password"
-            android:id="@+id/passwordpro"
             android:inputType="textPassword"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
@@ -90,6 +91,18 @@
             android:text="@string/save"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/white" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="@string/bannerProfile" />
 </LinearLayout>
 
 

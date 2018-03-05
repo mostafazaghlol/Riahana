@@ -71,12 +71,12 @@
     <string name="again">"مره اخرى "</string>
     <string name="rememberme">"تذكرنى "</string>
     <string name="checkit">بحث</string>
-    <string name="dogoout" translatable="false">هل تريد الخروج ؟</string>
-    <string name="goout" translatable="false">الخروج</string>
-    <string name="quit" translatable="false">خروج</string>
-    <string name="quitQuestion" translatable="false">هل تريد الخروج ؟</string>
-    <string name="yes" translatable="false">نعم</string>
-    <string name="no" translatable="false">لا</string>
+    <string name="dogoout">هل تريد الخروج ؟</string>
+    <string name="goout">الخروج</string>
+    <string name="quit">خروج</string>
+    <string name="quitQuestion">هل تريد الخروج ؟</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
     <string name="TimeandDate">الوقت والتاريخ</string>
     <string name="item_contact">اتصل بنا</string>
     <string name="item_about">عن التطبيق</string>
@@ -97,5 +97,8 @@
     <string name="pleasewait">"من فضلك انتظر قليلا ..... "</string>
     <string name="pick">التقط</string>
     <string name="nocoupun">لا يوجد كوبنات</string>
+    <string name="developedby">طور بواسطة</string>
+    <string name="item_developer">المطورين</string>
+
 
 </resources>

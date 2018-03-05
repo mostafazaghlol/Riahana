@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/calculatecost"
-    android:orientation="vertical"
-    android:id="@+id/mScrollView"
     android:fillViewport="true"
+    android:orientation="vertical"
     tools:context="com.mostafa.android.riahana.calculateActivity">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
             android:onClick="backIcon"
             android:src="@drawable/arrow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_calculate"
             android:layout_marginLeft="30dp"
+            android:text="@string/item_calculate"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/white"
@@ -98,14 +99,14 @@
             android:textColor="@color/white" />
 
         <EditText
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/DescriptionYourAge"
             android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             android:textColor="@color/white"
-            android:id="@+id/description"
-            android:textStyle="bold"
-            android:scrollbars="vertical"/>
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
@@ -119,11 +120,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="30dp"
             android:text="@string/send"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="30dp"/>
+            android:textColor="@color/white" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewcalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="@string/bannerCalculate" />
 </LinearLayout>
 
 </ScrollView>

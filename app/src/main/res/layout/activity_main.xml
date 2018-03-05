@@ -18,14 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:background="@color/white"
-        app:itemTextColor="@color/green"
-        app:itemBackground="@drawable/drawer_item_bg"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer"
-        android:paddingRight="10dp"
+        android:fitsSystemWindows="true"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemBackground="@drawable/drawer_item_bg"
+        app:itemTextColor="@color/green"
+        app:menu="@menu/activity_main_drawer"
     />
+
 
 </android.support.v4.widget.DrawerLayout>

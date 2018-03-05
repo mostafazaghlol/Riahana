@@ -20,6 +20,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,7 @@ public class newcalculationActivity extends AppCompatActivity {
     RecyclerView rv;
     ProgressBar progressBar;
     TextView txNo;
+    AdView mAdView;
     private List<calculatedate> calculates;
     private Context context;
 
@@ -67,6 +70,9 @@ public class newcalculationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_newcalculation);
         context = this;
         calculates = new ArrayList<>();
+        mAdView = findViewById(R.id.adViewcalculatenew);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         txNo = findViewById(R.id.txNonewcal);
         progressBar = findViewById(R.id.progressnewcal);
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);

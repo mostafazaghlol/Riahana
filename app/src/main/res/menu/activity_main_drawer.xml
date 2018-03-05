@@ -39,6 +39,9 @@
             android:id="@+id/Aboutapi"
             android:title="@string/item_about" />
         <item
+            android:id="@+id/hamada"
+            android:title="@string/item_developer" />
+        <item
             android:id="@+id/logout"
             android:title="@string/item_LOGOUT" />
     </group>

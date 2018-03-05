@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "797179621612",
+    "firebase_url": "https://rehana-66c87.firebaseio.com",
+    "project_id": "rehana-66c87",
+    "storage_bucket": "rehana-66c87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797179621612:android:28457df2cb0f1bef",
+        "android_client_info": {
+          "package_name": "com.mostafa.android.riahana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797179621612-l5rcd2ggvd0ttrmo1s1t2ensul3gu5po.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mostafa.android.riahana",
+            "certificate_hash": "75cf83e9f673438b0886d656cc590494960f4630"
+          }
+        },
+        {
+          "client_id": "797179621612-ps0gjlj5mo9vc5hj5qugoo34piueolig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAETNDc1UQxI0tq0LdaAwOpQ76Td-bXdNs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797179621612-ps0gjlj5mo9vc5hj5qugoo34piueolig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,53 +19,77 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class calculateActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 100;
     private static final int CAMERA_REQUEST = 1888;
     String urluser = "http://raihana-eg.com/site_api/api/cost_calculation";
-    Uri imageUri;;
+    Uri imageUri;
     ProgressDialog progDailog;
     ImageView imageView;
     EditText description;
     String comment, encodimg = "0", id_client , result, message;
     TextView send;
+    AdView mAdView;
+    InterstitialAd mInterstitialAd;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable(R.));
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBarColored(this);
         setContentView(R.layout.activity_calculate);
-        send = (TextView) findViewById(R.id.send);
-        imageView = (ImageView) findViewById(R.id.ima3);
-        description = (EditText) findViewById(R.id.description);
+        send = findViewById(R.id.send);
+        mAdView = findViewById(R.id.adViewcalculate);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interCalculate));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        imageView = findViewById(R.id.ima3);
+        description = findViewById(R.id.description);
         final SharedPreferences sharedPreferences = getSharedPreferences("pref", 0);
         id_client = sharedPreferences.getString("client_id", " ");
         final CharSequence[] items = {getString(R.string.choosePic), getString(R.string.picfromstudio),getString(R.string.cancel)};
@@ -118,6 +142,7 @@ public class calculateActivity extends AppCompatActivity {
         }
 
     }
+
     public void onRegisterSuccess(){
         processing();
         new GetDateUser().execute(id_client, images.lang, encodimg, comment);
@@ -150,6 +175,60 @@ public class calculateActivity extends AppCompatActivity {
 
     public void backIcon(View view) {
         onBackPressed();
+    }
+
+    public void processing(){
+        progDailog = new ProgressDialog(calculateActivity.this);
+        progDailog.setTitle(getString(R.string.calculatecost));
+        progDailog.setMessage(getString(R.string.pleasewait));
+        progDailog.setProgress(0);
+        progDailog.setMax(70);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int progress = 0;
+                while (progress <= 70) {
+                    try {
+                        progDailog.setProgress(progress);
+                        progress++;
+                        Thread.sleep(700);
+                    } catch (Exception e) {
+
+                    }
+                }
+                progDailog.dismiss();
+            }
+        });
+        thread.start();
+        progDailog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+            Bitmap Bimg = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            Bimg.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            encodimg = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        }
+
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+            Bitmap Bimg = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            Bimg.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            encodimg = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+
+        }
+    }
+
+    public void end(){
+        finish();
     }
 
     class GetDateUser extends AsyncTask<String, Boolean, Boolean> {
@@ -202,59 +281,6 @@ public class calculateActivity extends AppCompatActivity {
                     .show();
 
         }
-    }
-
-    public void processing(){
-        progDailog = new ProgressDialog(calculateActivity.this);
-        progDailog.setTitle(getString(R.string.calculatecost));
-        progDailog.setMessage(getString(R.string.pleasewait));
-        progDailog.setProgress(0);
-        progDailog.setMax(70);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int progress = 0;
-                while (progress <= 70) {
-                    try {
-                        progDailog.setProgress(progress);
-                        progress++;
-                        Thread.sleep(700);
-                    } catch (Exception e) {
-
-                    }
-                }
-                progDailog.dismiss();
-            }
-        });
-        thread.start();
-        progDailog.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
-            Bitmap Bimg = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            Bimg.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            encodimg = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-        }
-
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            Bitmap Bimg = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            Bimg.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            encodimg = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-
-        }
-    }
-    public void end(){
-        finish();
     }
 
 }

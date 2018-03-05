@@ -3,8 +3,8 @@ package com.mostafa.android.riahana;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,7 +18,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Downloader;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,15 +34,48 @@ import java.util.Map;
 public class profileActivity extends AppCompatActivity {
     TextView saveTextview;
     EditText etName,etPhone,etEmail,etpassword;
+    AdView mAdView;
+    InterstitialAd mInterstitialAd;
+
+    public static void setStatusBarColored(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = context.getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int statusBarHeight = getStatusBarHeight(context);
+
+            View view = new View(context);
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            view.getLayoutParams().height = statusBarHeight;
+            ((ViewGroup) w.getDecorView()).addView(view);
+//            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
+        }
+    }
+
+    public static int getStatusBarHeight(Activity context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setStatusBarColored(this);
-        etName = (EditText)findViewById(R.id.name);
-        etPhone = (EditText)findViewById(R.id.phone);
-        etEmail = (EditText)findViewById(R.id.emailaddress);
-        etpassword = (EditText)findViewById(R.id.passwordpro);
+        etName = findViewById(R.id.name);
+        etPhone = findViewById(R.id.phone);
+        etEmail = findViewById(R.id.emailaddress);
+        etpassword = findViewById(R.id.passwordpro);
+        mAdView = findViewById(R.id.adViewprofile);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interProfile));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         Intent i = getIntent();
         final String name=i.getStringExtra("name");
         final String email = i.getStringExtra("email");
@@ -48,12 +84,16 @@ public class profileActivity extends AppCompatActivity {
         etName.setText(name,TextView.BufferType.EDITABLE);
         etEmail.setText(email,TextView.BufferType.EDITABLE);
         etPhone.setText(phone,TextView.BufferType.EDITABLE);
-        saveTextview = (TextView)findViewById(R.id.btsave);
+        saveTextview = findViewById(R.id.btsave);
         saveTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String lan=Locale.getDefault().toString();
-
+                mInterstitialAd.setAdListener(new AdListener() {
+                    public void onAdLoaded() {
+                        showInterstitial();
+                    }
+                });
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -90,28 +130,10 @@ public class profileActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-
-    public static void setStatusBarColored(Activity context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            Window w = context.getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int statusBarHeight = getStatusBarHeight(context);
-
-            View view = new View(context);
-            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.getLayoutParams().height = statusBarHeight;
-            ((ViewGroup) w.getDecorView()).addView(view);
-//            view.setBackground(context.getResources().getDrawable(R.drawable.buttonblue));
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
         }
-    }
-    public static int getStatusBarHeight(Activity context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public class profile_Request extends StringRequest {
@@ -134,6 +156,5 @@ public class profileActivity extends AppCompatActivity {
             return params;
         }
     }
-
 
 }
